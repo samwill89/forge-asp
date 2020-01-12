@@ -25,7 +25,23 @@ $(document).ready(function () {
     $('#startWorkitem').click(startWorkitem);
 
     startConnection();
+
+
+    document.addEventListener('keydown', logKey);
+
+
 });
+
+function logKey(e) {
+    if (e.code == 'KeyA') {
+        console.log($('#Facade-Style').val());
+        console.log($('#Exterior-Material').val());
+        console.log($('#Material-Color').val());
+        console.log($('#Roofing-Material').val());
+        console.log($('#Fenestration').val());
+        console.log($('#Column-Style').val());
+    }
+}
 
 function prepareLists() {
     list('activity', '/api/forge/designautomation/activities');
@@ -144,11 +160,17 @@ function startWorkitem() {
                 //floors: $('#selectFloors')[0].checked,
                 //doors: $('#selectDoors')[0].checked,
                 //windows: $('#selectWindows')[0].checked
-                extMaterials : "Stucco",
-                materialColor : "Yellow",
-                roofMaterial : "Terra Cotta",
-                fenestrationTrim : "Default",
-                columnStyle : "None"
+                //console.log($('#Facade-Style').val());
+                //console.log($('#Exterior-Material').val());
+                //console.log($('#Material-Color').val());
+                //console.log($('#Roofing-Material').val());
+                //console.log($('#Fenestration').val());
+                //console.log($('#Column-Style').val());
+                extMaterials: $('#Exterior-Material').val(),
+                materialColor: $('#Material-Color').val(),
+                roofMaterial: $('#Roofing-Material').val(),
+                fenestrationTrim: $('#Fenestration').val(),
+                columnStyle: $('#Column-Style').val()
             }));
             writeLog('Start checking input file...');
             $.ajax({

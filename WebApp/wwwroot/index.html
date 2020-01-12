@@ -69,93 +69,164 @@
                         <h3>Count/Delete elements from Revit file</h3>
                     </div>
                 </div>
+
                 <div class="row">
-                    <div style="padding-top: 10px; text-align: center;">
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="/res/wall.png" class="img-rounded" width="100px" height="=100px" alt="Delete All Walls">
-                                <div class="caption">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" id='selectWalls' checked=true>
-                                        </span>
-                                        <label class="form-control">
-                                            Walls <span class="badge badge-pill badge-primary" id='walls'></span>
 
-                                        </label>
-                                    </div><!-- /input-group -->
-                                    </p>
-                                </div>
-                            </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="Facade Style">Facade Style</label>
+                            <select class="form-control" id="Facade-Style">
+                                <option value="Chicago">Chicago</option>
+                                <option value="San Francisco">San Francisco</option>
+                                <option value="Tuscany">Tuscany</option>
+                            </select>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="/res/floor.png" class="img-rounded" width="100px" height="=100px" alt="Delete All Floors">
-                                <div class="caption">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" id='selectFloors' checked=true>
-                                        </span>
-                                        <label class="form-control">
-                                            Floors
-                                            <span class="badge badge-pill badge-primary" id='floors'></span>
-                                        </label>
-                                    </div><!-- /input-group -->
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
 
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="/res/door.jpg" class="img-rounded" width="100px" height="=100px" alt="Delete All Doors">
-                                <div class="caption">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" id='selectDoors' checked=true>
-                                        </span>
-                                        <label class="form-control">
-                                            Doors
-                                            <span class="badge badge-pill badge-primary" id="doors"></span>
-                                        </label>
-                                    </div><!-- /input-group -->
-                                    </p>
-                                </div>
-                            </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="Exterior Material">Exterior Material</label>
+                            <select class="form-control" id="Exterior-Material">
+                                <option value="Wood Lap">Wood Lap</option>
+                                <option value="Brick">Brick</option>
+                                <option value="Stucco">Stucco</option>
+                            </select>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="thumbnail">
-                                <img src="/res/window.png" class="img-rounded" width="100px" height="=100px" alt="Delete All Windows">
-                                <div class="caption">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="checkbox" id='selectWindows' checked=true>
-                                        </span>
-                                        <label class="form-control">
-                                            Windows
-                                            <span class="badge badge-pill badge-primary" id="windows"></span>
-                                        </label>
-                                    </div><!-- /input-group -->
-                                    </p>
-                                </div>
-                            </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="Material Color">Material Color</label>
+                            <select class="form-control" id="Material-Color">
+                                <option value="White">White</option>
+                                <option value="Yellow">Yellow</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="activity">Existing activities</label>
-                    <select class="form-control" id="activity"> </select>
-                </div>
-                <center><button class="btn btn-primary" id="startWorkitem">Start workitem</button></center><br />
 
-                <div id="forgeViewer">
+                <div class="row">
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="Roofing Material">Roofing Material</label>
+                            <select class="form-control" id="Roofing-Material">
+                                <option value="Shinqles">Shinqles</option>
+                                <option value="Terra Cotta">Terra Cotta</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="Fenestration">Fenestration</label>
+                            <select class="form-control" id="Fenestration">
+                                <option value="Default">Default</option>
+                                <option value="None">None</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="Column Style">Column Style</label>
+                            <select class="form-control" id="Column-Style">
+                                <option value="Round">Round</option>
+                                <option value="Square">Square</option>
+                                <option value="None">None</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
+
+                    <!--<div class="row">
+            <div style="padding-top: 10px; text-align: center;">
+                <div class="col-lg-3">
+                    <div class="thumbnail">
+                        <img src="/res/wall.png" class="img-rounded" width="100px" height="=100px" alt="Delete All Walls">
+                        <div class="caption">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" id='selectWalls' checked=true>
+                                </span>
+                                <label class="form-control">
+                                    Walls <span class="badge badge-pill badge-primary" id='walls'></span>
+
+                                </label>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="thumbnail">
+                        <img src="/res/floor.png" class="img-rounded" width="100px" height="=100px" alt="Delete All Floors">
+                        <div class="caption">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" id='selectFloors' checked=true>
+                                </span>
+                                <label class="form-control">
+                                    Floors
+                                    <span class="badge badge-pill badge-primary" id='floors'></span>
+                                </label>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="thumbnail">
+                        <img src="/res/door.jpg" class="img-rounded" width="100px" height="=100px" alt="Delete All Doors">
+                        <div class="caption">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" id='selectDoors' checked=true>
+                                </span>
+                                <label class="form-control">
+                                    Doors
+                                    <span class="badge badge-pill badge-primary" id="doors"></span>
+                                </label>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="thumbnail">
+                        <img src="/res/window.png" class="img-rounded" width="100px" height="=100px" alt="Delete All Windows">
+                        <div class="caption">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <input type="checkbox" id='selectWindows' checked=true>
+                                </span>
+                                <label class="form-control">
+                                    Windows
+                                    <span class="badge badge-pill badge-primary" id="windows"></span>
+                                </label>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-3">
-                <pre id="outputlog" style="height: calc(100vh - 100px);; overflow-y: scroll;"></pre>
+        </div>-->
+                    <div class="form-group">
+                        <label for="activity">Existing activities</label>
+                        <select class="form-control" id="activity"> </select>
+                    </div>
+                    <center><button class="btn btn-primary" id="startWorkitem">Start workitem</button></center><br />
+
+                    <div id="forgeViewer">
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <pre id="outputlog" style="height: calc(100vh - 100px);; overflow-y: scroll;"></pre>
+                </div>
             </div>
-        </div>
     </div>
     <!-- Modal Define AppBundle & Activity -->
     <div class="modal fade" id="defineActivityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

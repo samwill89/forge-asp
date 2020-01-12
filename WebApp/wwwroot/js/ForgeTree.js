@@ -84,7 +84,6 @@ function prepareAppBucketTree() {
   }).bind("activate_node.jstree", function (evt, data) {
     if (data !== null && data.node !== null && data.node.type === 'object') {
       if (data.node.text.indexOf('.txt') > 0) return;
-      resetCount();
       $("#forgeViewer").empty();
       var urn = data.node.id;
       getForgeToken(function (access_token) {
@@ -181,11 +180,4 @@ function translateObject(node) {
             }
         });
   });
-}
-
-function resetCount() {
-  $('#walls')[0].innerText = '';
-  $('#floors')[0].innerText = '';
-  $('#doors')[0].innerText = '';
-  $('#windows')[0].innerText = '';
 }
