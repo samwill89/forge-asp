@@ -26,20 +26,31 @@ $(document).ready(function () {
 
     startConnection();
 
+    
 
     document.addEventListener('keydown', logKey);
 
 
 });
 
+function getAllData() {
+    jQuery.ajax({
+        url: 'api/forge/appdata/all',
+        method: 'GET',
+        //dataType: "json",
+        //multiple: false,
+        //data: function () {
+        //    return { "style": "FarmHouse" };
+        //},
+        success: function (result) {
+            console.log(result);
+        }
+    });
+}
+
 function logKey(e) {
     if (e.code == 'KeyA') {
-        console.log($('#Facade-Style').val());
-        console.log($('#Exterior-Material').val());
-        console.log($('#Material-Color').val());
-        console.log($('#Roofing-Material').val());
-        console.log($('#Fenestration').val());
-        console.log($('#Column-Style').val());
+        getAllData();
     }
 }
 
@@ -189,9 +200,10 @@ function startWorkitem() {
 }
 
 function writeLog(text) {
-    $('#outputlog').append('<div style="border-top: 1px dashed #C0C0C0">' + text + '</div>');
-    var elem = document.getElementById('outputlog');
-    elem.scrollTop = elem.scrollHeight;
+    console.log(text);
+    //$('#outputlog').append('<div style="border-top: 1px dashed #C0C0C0">' + text + '</div>');
+    //var elem = document.getElementById('outputlog');
+    //elem.scrollTop = elem.scrollHeight;
 }
 
 var connection;

@@ -17,6 +17,7 @@
     <!-- Autodesk Forge Viewer files -->
     <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.min.css" type="text/css">
     <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <!-- Files for this project -->
     <link href="css/main.css" rel="stylesheet" />
     <script src="/js/ForgeDesignAutomation.js"></script>
@@ -32,10 +33,13 @@
             <ul class="nav navbar-nav left">
                 <li>
                     <a href="http://developer.autodesk.com" target="_blank">
-                        <img alt="Autodesk Forge" src="//developer.static.autodesk.com/images/logo_forge-2-line.png"
-                             height="20">
+                        <img class="img-responsive" alt="Autodesk Forge" src="https://via.placeholder.com/100x25.png?text=LOGO">
                     </a>
                 </li>
+                <li><a href="#">File</a></li>
+                <li><a href="#">Edit</a></li>
+                <li><a href="#">View</a></li>
+                <li><a href="#">Help</a></li>
             </ul>
             <div style="float: right; margin-top: 15px; cursor: pointer;">
                 <span style="padding-right: 5px;" data-toggle="modal" data-target="#defineActivityModal" title="Configura AppBundle & Activity">
@@ -47,27 +51,158 @@
     <!-- End of navbar -->
     <div class="container-fluid" style="margin-top: 70px;">
         <div class="row">
+            <!-- ... existing HTML ... -->
 
-            <div class="col-sm-3">
-                <div class="panel panel-default fill">
-                    <div class="panel-heading" data-toggle="tooltip">
-                        Buckets &amp; Objects
-                        <span id="refreshBuckets" class="glyphicon glyphicon-refresh" style="cursor: pointer"></span>
-                        <button class="btn btn-xs btn-info" style="float: right" id="showFormCreateBucket" data-toggle="modal" data-target="#createBucketModal">
-                            <span class="glyphicon glyphicon-folder-close"></span> New bucket
-                        </button>
+            <!--<div id="like_button_container"></div>-->
+
+            <!-- ... existing HTML ... -->
+        </div>
+        <div class="row">
+
+            <!--<div class="col-sm-4">
+        <div class="panel panel-default fill">
+            <div class="panel-heading" data-toggle="tooltip">
+                Buckets &amp; Objects
+                <span id="refreshBuckets" class="glyphicon glyphicon-refresh" style="cursor: pointer"></span>
+                <button class="btn btn-xs btn-info" style="float: right" id="showFormCreateBucket" data-toggle="modal" data-target="#createBucketModal">
+                    <span class="glyphicon glyphicon-folder-close"></span> New bucket
+                </button>
+            </div>
+            <div id="appBuckets">
+                tree here
+            </div>
+        </div>
+
+    </div>-->
+
+            <div class="col-sm-4">
+
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <h4 class="panel-title">
+                                2 STORY - BY FLOOR PLANS
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                Content goes here.
+                            </div>
+                        </div>
                     </div>
-                    <div id="appBuckets">
-                        tree here
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <h4 class="panel-title">
+                                2 STORY - BY ARCHITECTURAL FORM
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                Content goes here.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <h4 class="panel-title">
+                                1 STORY - BY FLOOR PLANS
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                            <div class="panel-body">
+
+                                <div class="row" id="modelsList">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingFour" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            <h4 class="panel-title">
+                                1 STORY - BY ARCHITECTURAL FORM
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <img class="img-responsive" src="https://via.placeholder.com/150" alt="Alternate Text" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <img class="img-responsive" src="https://via.placeholder.com/150" alt="Alternate Text" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <img class="img-responsive" src="https://via.placeholder.com/150" alt="Alternate Text" />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <img class="img-responsive" src="https://via.placeholder.com/150" alt="Alternate Text" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <img class="img-responsive" src="https://via.placeholder.com/150" alt="Alternate Text" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <img class="img-responsive" src="https://via.placeholder.com/150" alt="Alternate Text" />
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <img class="img-responsive" src="https://via.placeholder.com/150" alt="Alternate Text" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <img class="img-responsive" src="https://via.placeholder.com/150" alt="Alternate Text" />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <img class="img-responsive" src="https://via.placeholder.com/150" alt="Alternate Text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingFive" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            <h4 class="panel-title">
+                                3 STORIES - BY FLOOR PLANS
+                            </h4>
+                        </div>
+                        <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                            <div class="panel-body">
+                                Content goes here.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingSix" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            <h4 class="panel-title">
+                                3 STORIES - BY ARCHITECTURAL FORM
+                            </h4>
+                        </div>
+                        <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                            <div class="panel-body">
+                                Content goes here.
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+
             </div>
-            <div class="col-sm-6">
-                <div class="row">
-                    <div style="text-align: center;">
-                        <h3>Count/Delete elements from Revit file</h3>
-                    </div>
+
+
+            <div class="col-sm-8">
+                <!--<div class="row">
+            <div style="text-align: center;">
+                <h3>Count/Delete elements from Revit file</h3>
+            </div>
+        </div>-->
+
+                <div id="forgeViewer">
                 </div>
 
                 <div class="row">
@@ -140,93 +275,19 @@
                 </div>
 
 
-                    <!--<div class="row">
-            <div style="padding-top: 10px; text-align: center;">
-                <div class="col-lg-3">
-                    <div class="thumbnail">
-                        <img src="/res/wall.png" class="img-rounded" width="100px" height="=100px" alt="Delete All Walls">
-                        <div class="caption">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" id='selectWalls' checked=true>
-                                </span>
-                                <label class="form-control">
-                                    Walls <span class="badge badge-pill badge-primary" id='walls'></span>
+                <div class="form-group">
+                    <label for="activity">Existing activities</label>
+                    <select class="form-control" id="activity"> </select>
+                </div>
+                <center><button class="btn btn-primary" id="startWorkitem">Start workitem</button></center><br />
 
-                                </label>
-                            </div>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="thumbnail">
-                        <img src="/res/floor.png" class="img-rounded" width="100px" height="=100px" alt="Delete All Floors">
-                        <div class="caption">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" id='selectFloors' checked=true>
-                                </span>
-                                <label class="form-control">
-                                    Floors
-                                    <span class="badge badge-pill badge-primary" id='floors'></span>
-                                </label>
-                            </div>
-                            </p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-lg-3">
-                    <div class="thumbnail">
-                        <img src="/res/door.jpg" class="img-rounded" width="100px" height="=100px" alt="Delete All Doors">
-                        <div class="caption">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" id='selectDoors' checked=true>
-                                </span>
-                                <label class="form-control">
-                                    Doors
-                                    <span class="badge badge-pill badge-primary" id="doors"></span>
-                                </label>
-                            </div>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="thumbnail">
-                        <img src="/res/window.png" class="img-rounded" width="100px" height="=100px" alt="Delete All Windows">
-                        <div class="caption">
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" id='selectWindows' checked=true>
-                                </span>
-                                <label class="form-control">
-                                    Windows
-                                    <span class="badge badge-pill badge-primary" id="windows"></span>
-                                </label>
-                            </div>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+
             </div>
-        </div>-->
-                    <div class="form-group">
-                        <label for="activity">Existing activities</label>
-                        <select class="form-control" id="activity"> </select>
-                    </div>
-                    <center><button class="btn btn-primary" id="startWorkitem">Start workitem</button></center><br />
-
-                    <div id="forgeViewer">
-                    </div>
-
-                </div>
-                <div class="col-sm-3">
-                    <pre id="outputlog" style="height: calc(100vh - 100px);; overflow-y: scroll;"></pre>
-                </div>
-            </div>
+            <!--<div class="col-sm-3">
+        <pre id="outputlog" style="height: calc(100vh - 100px);; overflow-y: scroll;"></pre>
+    </div>-->
+        </div>
     </div>
     <!-- Modal Define AppBundle & Activity -->
     <div class="modal fade" id="defineActivityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -282,6 +343,16 @@
             </div>
         </div>
     </div>
+
+
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load our React component. -->
+    <script src="/js/like_button.js" type="text/babel"></script>
 </body>
 
 </html>

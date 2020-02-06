@@ -7,11 +7,13 @@
   <ItemGroup>
     <PackageReference Include="Autodesk.Forge" Version="1.6.0-beta1" />
     <PackageReference Include="Autodesk.Forge.DesignAutomation" Version="3.0.0-beta5" />
+    <PackageReference Include="CsvHelper" Version="14.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CSVData\" />
     <Folder Include="wwwroot\bundles\" />
     <Folder Include="wwwroot\appdata\" />
     <Folder Include="wwwroot\res\" />

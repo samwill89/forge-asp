@@ -17,19 +17,70 @@
 /////////////////////////////////////////////////////////////////////
 
 $(document).ready(function () {
-  prepareAppBucketTree();
-  $('#refreshBuckets').click(function () {
-    $('#appBuckets').jstree(true).refresh();
-  });
+    TestOBjectsData();
+  //prepareAppBucketTree();
+  //$('#refreshBuckets').click(function () {
+  //  $('#appBuckets').jstree(true).refresh();
+  //});
 
-  $('#createNewBucket').click(function () {
-    createNewBucket();
-  });
+  //$('#createNewBucket').click(function () {
+  //  createNewBucket();
+  //});
 
-  $('#createBucketModal').on('shown.bs.modal', function () {
-    $("#newBucketKey").focus();
-  })
+  //$('#createBucketModal').on('shown.bs.modal', function () {
+  //  $("#newBucketKey").focus();
+  //})
 });
+
+function logKey(e) {
+    if (e.code == 'KeyX') {
+        TestOBjectsData();
+    }
+}
+
+function TestOBjectsData() {
+    jQuery.ajax({
+        url: '/api/forge/oss/buckets',
+        method: 'GET',
+        data: {
+            'id': "newtestingbucket",
+        },
+        success: function (result) {
+            $('#modelsList').empty();
+            result.forEach(function (item) {
+                // img source should be the same as the text of the model
+                $('#modelsList').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}')" data-toggle="tooltip" data-placement="right" title="${item.text}">
+                    <img class="img-responsive" src ="https://via.placeholder.com/150" alt ="${item.text}" />
+                                    </div >`);
+            })
+        }
+    });
+}
+
+function loadModel(modelID) {
+
+    $("#forgeViewer").empty();
+    var urn = modelID;
+    getForgeToken(function (access_token) {
+        jQuery.ajax({
+            url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
+            headers: { 'Authorization': 'Bearer ' + access_token },
+            success: function (res) {
+                if (res.status === 'success') launchViewer(urn);
+                else $("#forgeViewer").html('The translation job still running: ' + res.progress + '. Please try again in a moment.');
+            },
+            error: function (err) {
+                var msgButton = 'This file is not translated yet! ' +
+                    '<button class="btn btn-xs btn-info" onclick="translateObject()"><span class="glyphicon glyphicon-eye-open"></span> ' +
+                    'Start translation</button>'
+                $("#forgeViewer").html(msgButton);
+            }
+        });
+    })
+
+
+    //console.log(modelID);
+}
 
 function createNewBucket() {
   var bucketKey = $('#newBucketKey').val();
@@ -51,6 +102,7 @@ function createNewBucket() {
 }
 
 function prepareAppBucketTree() {
+    console.log("Here 1");
   $('#appBuckets').jstree({
     'core': {
       'themes': { "icons": true },
@@ -80,8 +132,10 @@ function prepareAppBucketTree() {
     "plugins": ["types", "state", "sort", "contextmenu"],
     contextmenu: { items: autodeskCustomMenu }
   }).on('loaded.jstree', function () {
-    $('#appBuckets').jstree('open_all');
+      $('#appBuckets').jstree('open_all');
+      console.log("Here 2");
   }).bind("activate_node.jstree", function (evt, data) {
+      console.log(data);
     if (data !== null && data.node !== null && data.node.type === 'object') {
       if (data.node.text.indexOf('.txt') > 0) return;
       $("#forgeViewer").empty();
