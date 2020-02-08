@@ -21,7 +21,7 @@ body {
 
 #forgeViewer {
   width: 100%;
-  /*height: calc(100vh - 850px);*/
+  height: calc(100vh - 850px);
 }
 
 .panel-heading{
@@ -46,4 +46,8 @@ body {
 
 .inner-img{
     margin-bottom: 20px;
+}
+
+#accordion2, #accordion3, #forgeViewer {
+    display: none;
 }

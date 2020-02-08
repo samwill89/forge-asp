@@ -18,6 +18,16 @@
 
 $(document).ready(function () {
     TestOBjectsData();
+
+    $('.pickPlan').click(function () {
+        $("#accordion1").hide();
+        $("#accordion2").show();
+    })
+
+    $('.pickFacade').click(function () {
+        $("#accordion2").hide();
+        $("#accordion3").show();
+    })
   //prepareAppBucketTree();
   //$('#refreshBuckets').click(function () {
   //  $('#appBuckets').jstree(true).refresh();
@@ -38,6 +48,8 @@ function logKey(e) {
     }
 }
 
+
+
 function TestOBjectsData() {
     jQuery.ajax({
         url: '/api/forge/oss/buckets',
@@ -46,18 +58,31 @@ function TestOBjectsData() {
             'id': "newtestingbucket",
         },
         success: function (result) {
-            $('#modelsList').empty();
+            $('#floorPlansList').empty();
             result.forEach(function (item) {
                 // img source should be the same as the text of the model
-                $('#modelsList').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}')" data-toggle="tooltip" data-placement="right" title="${item.text}">
+                // onClick here will load the corresponding image
+                $('#floorPlansList').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}')" data-toggle="tooltip" data-placement="right" title="${item.text}">
                     <img class="img-responsive" src ="https://via.placeholder.com/150" alt ="${item.text}" />
                                     </div >`);
-            })
+            });
+            $('#archFormList').empty();
+            result.forEach(function (item) {
+                // img source should be the same as the text of the model
+                // onClick here will load the corresponding 3d model
+                $('#archFormList').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}')" data-toggle="tooltip" data-placement="right" title="${item.text}">
+                    <img class="img-responsive" src ="https://via.placeholder.com/150" alt ="${item.text}" />
+                                    </div >`);
+            });
+            
         }
     });
 }
 
 function loadModel(modelID) {
+
+    $("#mainViewImg").hide();
+    $("#forgeViewer").show();
 
     $("#forgeViewer").empty();
     var urn = modelID;

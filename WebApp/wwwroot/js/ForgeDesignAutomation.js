@@ -17,19 +17,20 @@
 /////////////////////////////////////////////////////////////////////
 
 $(document).ready(function () {
-    prepareLists();
+    //prepareLists();
 
-    $('#clearAccount').click(clearAccount);
-    $('#defineActivityShow').click(defineActivityModal);
-    $('#createAppBundleActivity').click(createAppBundleActivity);
-    $('#startWorkitem').click(startWorkitem);
+    //$('#clearAccount').click(clearAccount);
+    //$('#defineActivityShow').click(defineActivityModal);
+    //$('#createAppBundleActivity').click(createAppBundleActivity);
+    //$('#startWorkitem').click(startWorkitem);
 
     startConnection();
 
     
 
     document.addEventListener('keydown', logKey);
-
+    //console.log("HWHAAT!");
+    getAllData();
 
 });
 
@@ -43,13 +44,26 @@ function getAllData() {
         //    return { "style": "FarmHouse" };
         //},
         success: function (result) {
-            console.log(result);
+
+            //console.log(Object.keys(result[0]));
+            var styles = Object.keys(result[0]);
+            styles.splice(0, 1);
+            $('#popularityList').empty();
+            styles.forEach(function (item) {
+                // img source should be the same as the text of the model
+                // onClick here will load the corresponding 3d model
+                $('#popularityList').append(`<div id="${item}" class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${item}">
+                    <img class="img-responsive" src ="https://via.placeholder.com/150.png?text=${item}" alt ="${item}" />
+                                    </div >`);
+            });
+            
         }
     });
 }
 
 function logKey(e) {
     if (e.code == 'KeyA') {
+        console.log("Clicked!");
         getAllData();
     }
 }
