@@ -30,7 +30,7 @@ namespace forgesample.Controllers
         [Route("api/forge/appdata/all")]
         public List<IDictionary<string, object>> GetAllData()
         {
-            string filePath = Path.Combine(_hostingEnvironment.ContentRootPath, "CSVData/BIM Quote Facades.csv");
+            string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "CSVData/BIM Quote Facades.csv");
             using (var reader = new StreamReader(filePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
