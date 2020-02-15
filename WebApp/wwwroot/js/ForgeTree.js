@@ -24,10 +24,25 @@ $(document).ready(function () {
         $("#accordion2").show();
     })
 
-    $('.pickFacade').click(function () {
+    $('#modify').click(function () {
         $("#accordion2").hide();
         $("#accordion3").show();
     })
+
+
+    $("#plans").click(function () {
+        
+    })
+
+    $("#facades").click(function () {
+
+    })
+
+    $("#interior").click(function () {
+
+    })
+    //$("#facades").attr("src", 'images/axons/' + src.split('/').slice(-1)[0]);
+    //$("#interior").attr("src", 'images/sides/' + src.split('/').slice(-1)[0]);
   //prepareAppBucketTree();
   //$('#refreshBuckets').click(function () {
   //  $('#appBuckets').jstree(true).refresh();
@@ -58,53 +73,114 @@ function TestOBjectsData() {
             'id': "newtestingbucket",
         },
         success: function (result) {
+
+            var i = 1;
             $('#floorPlansList').empty();
             result.forEach(function (item) {
                 // img source should be the same as the text of the model
                 // onClick here will load the corresponding image
-                $('#floorPlansList').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}')" data-toggle="tooltip" data-placement="right" title="${item.text}">
-                    <img class="img-responsive" src ="https://via.placeholder.com/150" alt ="${item.text}" />
+                $('#floorPlansList').append(`<div id="#${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}', 'plan')" data-toggle="tooltip" data-placement="right" title="${item.text}">
+                    <img class="img-responsive" src ="images/plans/${i}.png" alt ="${item.text}" />
                                     </div >`);
+
+                if (i % 3 == 0) {
+                    // onClick here will load the corresponding image
+                    $('#floorPlansList').append(`<br />`);
+                }
+                i++;
             });
+
+            i = 1;
             $('#archFormList').empty();
             result.forEach(function (item) {
                 // img source should be the same as the text of the model
                 // onClick here will load the corresponding 3d model
-                $('#archFormList').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}')" data-toggle="tooltip" data-placement="right" title="${item.text}">
-                    <img class="img-responsive" src ="https://via.placeholder.com/150" alt ="${item.text}" />
+                $('#archFormList').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}', 'arch')" data-toggle="tooltip" data-placement="right" title="${item.text}">
+                    <img class="img-responsive" src ="images/axons/${i}.png" alt ="${item.text}" />
                                     </div >`);
+
+                if (i % 3 == 0) {
+                    // onClick here will load the corresponding image
+                    $('#archFormList').append(`<br />`);
+                }
+                i++;
             });
+
+
+            $('#baseMaterialsList').empty();
+
+            for (var x = 1; x <= 6; x++) {
+                $('#baseMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${x}">
+                    <img class="img-responsive" src ="images/walls_materials/${x}.png" alt ="${x}" />
+                                    </div >`);
+            }
+
+            $('#secondaryWindowsList').empty();
+
+            for (var x = 1; x <= 9; x++) {
+                $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${x}">
+                    <img class="img-responsive" src ="images/windows/${x}.png" alt ="${x}" />
+                                    </div >`);
+            }
             
         }
     });
 }
 
-function loadModel(modelID) {
+function loadModel(modelID, type) {
 
-    $("#mainViewImg").hide();
-    $("#forgeViewer").show();
+    if (type == "plan") {
+        //var src = $("#" + modelID).children(":first").attr("src");
+        var src = document.getElementById('#'+modelID).firstElementChild.getAttribute('src');
+        //console.log(src.split('/').slice(-1)[0]);
+        $("#mainViewImg").attr("src", src);
+        $("#plans").attr("src", src);
+        $("#facades").attr("src", 'images/axons/' + src.split('/').slice(-1)[0]);
+        $("#facades").unbind().click(function () {
+            loadModel(modelID, 'arch');
+        })
+        $("#interior").attr("src", 'images/sides/' + src.split('/').slice(-1)[0]);
+        $("#interior").unbind().click(function () {
+            loadModel(modelID, 'arch');
+        })
+    }
 
-    $("#forgeViewer").empty();
-    var urn = modelID;
-    getForgeToken(function (access_token) {
-        jQuery.ajax({
-            url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
-            headers: { 'Authorization': 'Bearer ' + access_token },
-            success: function (res) {
-                if (res.status === 'success') launchViewer(urn);
-                else $("#forgeViewer").html('The translation job still running: ' + res.progress + '. Please try again in a moment.');
-            },
-            error: function (err) {
-                var msgButton = 'This file is not translated yet! ' +
-                    '<button class="btn btn-xs btn-info" onclick="translateObject()"><span class="glyphicon glyphicon-eye-open"></span> ' +
-                    'Start translation</button>'
-                $("#forgeViewer").html(msgButton);
-            }
-        });
-    })
+    if (type == "arch") {
 
+        $("#mainViewImg").hide();
+        $("#forgeViewer").show();
 
-    //console.log(modelID);
+        var src = document.getElementById(modelID).firstElementChild.getAttribute('src').split('/').slice(-1)[0];
+        $("#plans").attr("src", 'images/plans/' + src);
+        $("#facades").attr("src", 'images/axons/' + src);
+        $("#facades").unbind().click(function () {
+            loadModel(modelID, 'arch');
+        })
+        $("#interior").attr("src", 'images/sides/' + src);
+        $("#interior").unbind().click(function () {
+            loadModel(modelID, 'arch');
+        })
+
+        $("#forgeViewer").empty();
+        var urn = modelID;
+        getForgeToken(function (access_token) {
+            jQuery.ajax({
+                url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
+                headers: { 'Authorization': 'Bearer ' + access_token },
+                success: function (res) {
+                    if (res.status === 'success') launchViewer(urn);
+                    else $("#forgeViewer").html('The translation job still running: ' + res.progress + '. Please try again in a moment.');
+                },
+                error: function (err) {
+                    var msgButton = 'This file is not translated yet! ' +
+                        '<button class="btn btn-xs btn-info" onclick="translateObject()"><span class="glyphicon glyphicon-eye-open"></span> ' +
+                        'Start translation</button>'
+                    $("#forgeViewer").html(msgButton);
+                }
+            });
+        })
+    }
+
 }
 
 function createNewBucket() {

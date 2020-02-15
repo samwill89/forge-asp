@@ -32,8 +32,8 @@
         <div class="container-fluid">
             <ul class="nav navbar-nav left">
                 <li>
-                    <a href="http://developer.autodesk.com" target="_blank">
-                        <img class="img-responsive" alt="Autodesk Forge" src="https://via.placeholder.com/100x25.png?text=LOGO">
+                    <a href="#" target="_blank">
+                        <img class="img-responsive" style="height: 24px;" alt="HQ" src="images/logo.png">
                     </a>
                 </li>
                 <li><a href="#">File</a></li>
@@ -97,9 +97,29 @@
                         <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
                             <div class="panel-body">
 
-                                <div class="row" id="floorPlansList">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation"><a href="#1bed" aria-controls="1bed" role="tab" data-toggle="tab">1 Bed</a></li>
+                                    <li role="presentation"><a href="#2bed" aria-controls="2bed" role="tab" data-toggle="tab">2 Bed</a></li>
+                                    <li role="presentation" class="active"><a href="#3bed" aria-controls="3bed" role="tab" data-toggle="tab">3 Bed</a></li>
+                                    <li role="presentation"><a href="#4bed" aria-controls="4bed" role="tab" data-toggle="tab">4+ Bed</a></li>
+                                </ul>
 
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane" id="1bed">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="2bed">...</div>
+                                    <div role="tabpanel" class="tab-pane active" id="3bed">
+                                        <div class="row" id="floorPlansList">
+
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="4bed">...</div>
                                 </div>
+
+
+
+                                
 
                                 <div class="row text-center">
                                     <button class="btn btn-default pickPlan">PICK PLAN</button>
@@ -183,7 +203,7 @@
                                 BY POPULARITY
                             </h4>
                         </div>
-                        <div id="collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading9">
+                        <div id="collapse9" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading9">
                             <div class="panel-body">
 
                                 <div class="row" id="popularityList">
@@ -245,9 +265,32 @@
                                 WALLS &amp; MATERIALS
                             </h4>
                         </div>
-                        <div id="collapse13" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading13">
+                        <div id="collapse13" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading13">
                             <div class="panel-body">
-                                Content goes here.
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation"><a href="#mainmat" aria-controls="mainmat" role="tab" data-toggle="tab">MAIN</a></li>
+                                    <li role="presentation" class="active"><a href="#basemat" aria-controls="basemat" role="tab" data-toggle="tab">BASE</a></li>
+                                    <li role="presentation"><a href="#accentmat" aria-controls="accentmat" role="tab" data-toggle="tab">ACCENT</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane" id="mainmat">...</div>
+                                    <div role="tabpanel" class="tab-pane active" id="basemat">
+                                        <div class="row" id="baseMaterialsList">
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="accentmat">...</div>
+                                </div>
+
+
+
+
+
+                                <div class="row text-center">
+                                    <button class="btn btn-default selectBaseMaterial">SELECT</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -272,8 +315,29 @@
                         <div id="collapse15" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading15">
                             <div class="panel-body">
 
-                                <div class="row">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation"><a href="#primary" aria-controls="primary" role="tab" data-toggle="tab">PRIMARY</a></li>
+                                    <li role="presentation" class="active"><a href="#secondary" aria-controls="secondary" role="tab" data-toggle="tab">SECONDARY</a></li>
+                                    <li role="presentation"><a href="#ternary" aria-controls="ternary" role="tab" data-toggle="tab">TERNARY</a></li>
+                                </ul>
 
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane" id="primary">...</div>
+                                    <div role="tabpanel" class="tab-pane active" id="secondary">
+                                        <div class="row" id="secondaryWindowsList">
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="ternary">...</div>
+                                </div>
+
+
+
+
+
+                                <div class="row text-center">
+                                    <button class="btn btn-default selectBaseMaterial">SELECT</button>
                                 </div>
 
                             </div>
@@ -331,26 +395,28 @@
     </div>-->
 
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 text-center">
 
                         <div id="forgeViewer" style="height: 500px;">
                         </div>
 
-                        <img id="mainViewImg" class="img-responsive" src="https://via.placeholder.com/1000x500.png?text=BIMQuote" alt="BIMQuote" />
+                        <img id="mainViewImg" class="img-responsive text-center" src="images/main.jpg" alt="BIMQuote" />
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-sm-4">
-                        <img class="img-responsive" src="https://via.placeholder.com/1000x500.png?text=PLANS" alt="BIMQuote" />
+                        <img id="plans" class="img-responsive" src="images/plans.png" alt="BIMQuote" />
+                    </div>
+
+                    
+                    
+                    <div class="col-sm-4">
+                        <img id="facades" class="img-responsive" src="images/facades.png" alt="BIMQuote" />
                     </div>
                     
                     <div class="col-sm-4">
-                        <img class="img-responsive" src="https://via.placeholder.com/1000x500.png?text=FACADES" alt="BIMQuote" />
-                    </div>
-                    
-                    <div class="col-sm-4">
-                        <img class="img-responsive" src="https://via.placeholder.com/1000x500.png?text=INTERIORS" alt="BIMQuote" />
+                        <img id="interior" class="img-responsive" src="images/interior.png" alt="BIMQuote" />
                     </div>
                     
                 </div>

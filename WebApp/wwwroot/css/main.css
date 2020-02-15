@@ -46,8 +46,18 @@ body {
 
 .inner-img{
     margin-bottom: 20px;
+    height: 150px;
 }
+
+/*.inner-img img{
+    height: 100%;
+}*/
 
 #accordion2, #accordion3, #forgeViewer {
     display: none;
+}
+
+#mainViewImg {
+    height: 60vh;
+    margin: 0 auto;
 }

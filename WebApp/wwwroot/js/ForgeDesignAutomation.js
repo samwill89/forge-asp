@@ -46,15 +46,19 @@ function getAllData() {
         success: function (result) {
 
             //console.log(Object.keys(result[0]));
+            var i = 1;
             var styles = Object.keys(result[0]);
             styles.splice(0, 1);
             $('#popularityList').empty();
             styles.forEach(function (item) {
                 // img source should be the same as the text of the model
                 // onClick here will load the corresponding 3d model
-                $('#popularityList').append(`<div id="${item}" class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${item}">
-                    <img class="img-responsive" src ="https://via.placeholder.com/150.png?text=${item}" alt ="${item}" />
+                if (i <= 9) {
+                    $('#popularityList').append(`<div id="${item}" class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${item}">
+                    <img class="img-responsive" src ="images/facades/${i}.jpg" alt ="${item}" />
                                     </div >`);
+                    i++;
+                }
             });
             
         }
