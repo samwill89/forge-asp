@@ -7,24 +7,31 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using CsvHelper;
+using Microsoft.AspNetCore.Hosting;
 
 namespace forgesample.Controllers
 {
     [ApiController]
     public class AppDataController : ControllerBase
     {
+        private readonly IHostingEnvironment _hostingEnvironment;
+
         private List<IDictionary<string, object>> _facadesDb;
         private List<string> _keys;
 
         public Dictionary<string, string> Values { get; private set; }
 
+        public AppDataController(IHostingEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
 
         [HttpGet]
         [Route("api/forge/appdata/all")]
         public List<IDictionary<string, object>> GetAllData()
         {
-            
-            using (var reader = new StreamReader(Startup.contentRoot + "/CSVData/BIM Quote Facades.csv"))
+            string filePath = Path.Combine(_hostingEnvironment.ContentRootPath, "CSVData/BIM Quote Facades.csv");
+            using (var reader = new StreamReader(filePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 _facadesDb = csv.GetRecords<dynamic>().Select(row => (IDictionary<string, object>)row).ToList();
@@ -41,7 +48,7 @@ namespace forgesample.Controllers
 
 
                 return _facadesDb;
-                
+
             }
         }
 
