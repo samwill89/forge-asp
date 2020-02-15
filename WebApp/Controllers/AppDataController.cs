@@ -23,7 +23,8 @@ namespace forgesample.Controllers
         [Route("api/forge/appdata/all")]
         public List<IDictionary<string, object>> GetAllData()
         {
-            using (var reader = new StreamReader("./CSVData/BIM Quote Facades.csv"))
+            
+            using (var reader = new StreamReader(Startup.contentRoot + "/CSVData/BIM Quote Facades.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 _facadesDb = csv.GetRecords<dynamic>().Select(row => (IDictionary<string, object>)row).ToList();
