@@ -44,7 +44,7 @@ function getAllData() {
         //    return { "style": "FarmHouse" };
         //},
         success: function (result) {
-
+            console.log(result);
             //console.log(Object.keys(result[0]));
             var i = 1;
             var styles = Object.keys(result[0]);
