@@ -17,19 +17,22 @@
 /////////////////////////////////////////////////////////////////////
 
 $(document).ready(function () {
-    //prepareLists();
+    prepareLists();
 
     //$('#clearAccount').click(clearAccount);
     //$('#defineActivityShow').click(defineActivityModal);
-    //$('#createAppBundleActivity').click(createAppBundleActivity);
+    $('#createAppBundleActivity').click(createAppBundleActivity);
     //$('#startWorkitem').click(startWorkitem);
 
     startConnection();
 
     
 
-    document.addEventListener('keydown', logKey);
-    //console.log("HWHAAT!");
+    document.addEventListener('keydown', event => {
+        if (event.keyCode == 65) {
+            startWorkitem();
+        }
+    });
     getAllData();
 
 });
@@ -44,7 +47,7 @@ function getAllData() {
         //    return { "style": "FarmHouse" };
         //},
         success: function (result) {
-            console.log(result);
+            console.log(result[0]);
             //console.log(Object.keys(result[0]));
             var i = 1;
             var styles = Object.keys(result[0]);
@@ -66,9 +69,10 @@ function getAllData() {
 }
 
 function logKey(e) {
-    if (e.code == 'KeyA') {
+    console.log("asds");
+    if (e.code == 'KeyX') {
         console.log("Clicked!");
-        getAllData();
+        //startWorkitem();
     }
 }
 
@@ -166,22 +170,23 @@ function createActivity(cb) {
 
 
 function startWorkitem() {
-    let sourceNode = $('#appBuckets').jstree(true).get_selected(true)[0];
+    //let sourceNode = $('#appBuckets').jstree(true).get_selected(true)[0];
     // use == here because sourceNode may be undefined or null
-    if (sourceNode == null || sourceNode.type !== 'object' ) {
-        alert('Can not get the selected file, please make sure you select a file as input');
-        return;
-    }
+    //if (sourceNode == null || sourceNode.type !== 'object' ) {
+    //    alert('Can not get the selected file, please make sure you select a file as input');
+    //    return;
+    //}
 
-    let activityId = $('#activity').val();
+    //let activityId = $('#activity').val();
+    let activityId = "DeleteElementsActivity+dev";
     if (activityId == null) { alert('Please select an activity'); return };
 
     if (activityId.toLowerCase() === "countitactivity+dev"
         || activityId.toLowerCase() === "deleteelementsactivity+dev" ) {
         startConnection(function () {
             var formData = new FormData();
-            formData.append('objectId', sourceNode.text);
-            formData.append('bucketId', sourceNode.parent);
+            formData.append('objectId', '124.rvt');
+            formData.append('bucketId', 'facadedemobucket');
             formData.append('activityId', activityId);
             formData.append('browerConnectionId', connectionId);
             formData.append('data', JSON.stringify({
@@ -195,11 +200,11 @@ function startWorkitem() {
                 //console.log($('#Roofing-Material').val());
                 //console.log($('#Fenestration').val());
                 //console.log($('#Column-Style').val());
-                extMaterials: $('#Exterior-Material').val(),
-                materialColor: $('#Material-Color').val(),
-                roofMaterial: $('#Roofing-Material').val(),
-                fenestrationTrim: $('#Fenestration').val(),
-                columnStyle: $('#Column-Style').val()
+                extMaterials: "extMaterials",
+                materialColor: "materialColor",
+                roofMaterial: "roofMaterial",
+                fenestrationTrim: "fenestrationTrim",
+                columnStyle: "columnStyle"
             }));
             writeLog('Start checking input file...');
             $.ajax({
@@ -235,6 +240,7 @@ function startConnection(onReady) {
             connection.invoke('getConnectionId')
                 .then(function (id) {
                     connectionId = id; // we'll need this...
+                    console.log(connectionId)
                     if (onReady) onReady();
                 });
         });
@@ -249,10 +255,10 @@ function startConnection(onReady) {
     });
     connection.on("onComplete", function (message) {
         writeLog(message);
-        let instance = $('#appBuckets').jstree(true);
-        selectNode = instance.get_selected(true)[0];
-        parentNode = instance.get_parent(selectNode);
-        instance.refresh_node(parentNode);
+        //let instance = $('#appBuckets').jstree(true);
+        //selectNode = instance.get_selected(true)[0];
+        //parentNode = instance.get_parent(selectNode);
+        //instance.refresh_node(parentNode);
     });
     connection.on("extractionFinished", function (data) {
         launchViewer(data.resourceUrn);

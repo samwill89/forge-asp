@@ -70,7 +70,7 @@ function TestOBjectsData() {
         url: '/api/forge/oss/buckets',
         method: 'GET',
         data: {
-            'id': "newtestingbucket",
+            'id': "facadedemobucket",
         },
         success: function (result) {
 
