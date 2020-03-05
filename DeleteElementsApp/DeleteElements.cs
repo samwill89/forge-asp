@@ -334,6 +334,8 @@ namespace DeleteElements
       }
 
 
+
+
         // Convert user input in inches to feet
         private double InchesToFeet(int inches)
         {
@@ -1014,6 +1016,7 @@ namespace DeleteElements
             // ADD - Function to remove and set back if new facade style doesn't call for a base wall
         }
 
+
         private void GenerateFacade()
         {
             WallData wallData = GetWallTypes();
@@ -1033,6 +1036,8 @@ namespace DeleteElements
             //WindowData windowData = GetWindowTypes();
             //SetWindowData(windowData);
         }
+
+
 
     }
 }

@@ -28,6 +28,22 @@ function launchViewer(urn) {
     Autodesk.Viewing.Initializer(options, function onInitialized() {
         viewer = new Autodesk.Viewing.GuiViewer3D(document.getElementById('forgeViewer'));
         viewer.start();
+
+
+        viewer.addEventListener(Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, function () {
+            const tree = viewer.model.getInstanceTree();
+            const rootId = tree.getRootId();
+            tree.enumNodeChildren(
+                rootId,
+                function (dbId) {
+                    console.log('dbId:', dbId, 'childCount:', tree.getChildCount(dbId));
+                },
+                true
+            );
+        });
+
+
+
         var documentId = 'urn:' + urn;
         Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
     });

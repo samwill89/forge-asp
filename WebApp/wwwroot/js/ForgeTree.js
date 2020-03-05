@@ -17,15 +17,17 @@
 /////////////////////////////////////////////////////////////////////
 
 $(document).ready(function () {
-    TestOBjectsData();
+    
 
-    $('.pickPlan').click(function () {
-        $("#accordion1").hide();
-        $("#accordion2").show();
+    $('.pickFacade').click(function () {
+        $("#accordion2").hide();
+        $("#accordion1").show();
+        //console.log(csvData[currentSelectedStyle]['Style']);
+        TestOBjectsData(csvData[currentSelectedStyle]['Style'].toLowerCase());
     })
 
     $('#modify').click(function () {
-        $("#accordion2").hide();
+        $("#accordion1").hide();
         $("#accordion3").show();
     })
 
@@ -65,12 +67,12 @@ function logKey(e) {
 
 
 
-function TestOBjectsData() {
+function TestOBjectsData(facadestyle) {
     jQuery.ajax({
         url: '/api/forge/oss/buckets',
         method: 'GET',
         data: {
-            'id': "facadedemobucket",
+            'id': `${facadestyle}bucket`,
         },
         success: function (result) {
 

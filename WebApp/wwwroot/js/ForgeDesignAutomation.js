@@ -17,6 +17,8 @@
 /////////////////////////////////////////////////////////////////////
 
 $(document).ready(function () {
+
+    
     prepareLists();
 
     //$('#clearAccount').click(clearAccount);
@@ -30,13 +32,15 @@ $(document).ready(function () {
 
     document.addEventListener('keydown', event => {
         if (event.keyCode == 65) {
+            console.log(csvData[currentSelectedStyle]);
             startWorkitem();
         }
     });
     getAllData();
 
 });
-
+var csvData;
+var currentSelectedStyle = 0;
 function getAllData() {
     jQuery.ajax({
         url: 'api/forge/appdata/all',
@@ -47,18 +51,28 @@ function getAllData() {
         //    return { "style": "FarmHouse" };
         //},
         success: function (result) {
-            console.log(result[0]);
+            //console.log(result[0]);
+            csvData = result;
+            csvData.forEach((element) => {
+                Object.keys(element).forEach(function (key) {
+                    if (key.indexOf('-') != -1) {
+                        var newstr = key.replace('-', '_');
+                        element[newstr] = element[key];
+                        delete element[key];
+                    }
+                });
+            });
             //console.log(Object.keys(result[0]));
             var i = 1;
             var styles = Object.keys(result[0]);
             styles.splice(0, 1);
             $('#popularityList').empty();
-            styles.forEach(function (item) {
+            result.forEach(function (item) {
                 // img source should be the same as the text of the model
                 // onClick here will load the corresponding 3d model
                 if (i <= 9) {
-                    $('#popularityList').append(`<div id="${item}" class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${item}">
-                    <img class="img-responsive" src ="images/facades/${i}.jpg" alt ="${item}" />
+                    $('#popularityList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${item.Style}">
+                    <img id="style${i - 1}" class="img-responsive styles" src ="images/facades/${item.Style}.jpg" alt ="${item.Style}" onClick="GetStyleData('${i-1}')" />
                                     </div >`);
                     i++;
                 }
@@ -66,6 +80,15 @@ function getAllData() {
             
         }
     });
+}
+
+function GetStyleData(index) {
+    currentSelectedStyle = index;
+    console.log(csvData[currentSelectedStyle]);
+    $(".styles").each(function () {
+        $(this).removeClass("activeStyle");
+    });
+    $('#style' + index).addClass("activeStyle");
 }
 
 function logKey(e) {
@@ -189,23 +212,7 @@ function startWorkitem() {
             formData.append('bucketId', 'facadedemobucket');
             formData.append('activityId', activityId);
             formData.append('browerConnectionId', connectionId);
-            formData.append('data', JSON.stringify({
-                //walls: $('#selectWalls')[0].checked,
-                //floors: $('#selectFloors')[0].checked,
-                //doors: $('#selectDoors')[0].checked,
-                //windows: $('#selectWindows')[0].checked
-                //console.log($('#Facade-Style').val());
-                //console.log($('#Exterior-Material').val());
-                //console.log($('#Material-Color').val());
-                //console.log($('#Roofing-Material').val());
-                //console.log($('#Fenestration').val());
-                //console.log($('#Column-Style').val());
-                extMaterials: "extMaterials",
-                materialColor: "materialColor",
-                roofMaterial: "roofMaterial",
-                fenestrationTrim: "fenestrationTrim",
-                columnStyle: "columnStyle"
-            }));
+            formData.append('data', JSON.stringify(csvData[currentSelectedStyle]));
             writeLog('Start checking input file...');
             $.ajax({
                 url: 'api/forge/designautomation/startworkitem',
@@ -240,7 +247,7 @@ function startConnection(onReady) {
             connection.invoke('getConnectionId')
                 .then(function (id) {
                     connectionId = id; // we'll need this...
-                    console.log(connectionId)
+                    //console.log(connectionId)
                     if (onReady) onReady();
                 });
         });
