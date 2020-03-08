@@ -17,7 +17,87 @@
 /////////////////////////////////////////////////////////////////////
 
 $(document).ready(function () {
-    
+
+
+    var floorPlanIDs = ['floorPanel1', 'floorPanel2', 'floorPanel3'];
+    var archPanelIDs = ['archPanel1', 'archPanel2', 'archPanel3'];
+    floorPlanIDs.forEach(id => {
+        var storyNumber = id[id.length - 1];
+        $('#' + id).append(`<ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation"><a href="#1bed${storyNumber}f" aria-controls="1bed${storyNumber}f" role="tab" data-toggle="tab">1 Bed</a></li>
+                                    <li role="presentation"><a href="#2bed${storyNumber}f" aria-controls="2bed${storyNumber}f" role="tab" data-toggle="tab">2 Bed</a></li>
+                                    <li role="presentation" class="active"><a href="#3bed${storyNumber}f" aria-controls="3bed${storyNumber}f" role="tab" data-toggle="tab">3 Bed</a></li>
+                                    <li role="presentation"><a href="#4bed${storyNumber}f" aria-controls="4bed${storyNumber}f" role="tab" data-toggle="tab">4+ Bed</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane" id="1bed${storyNumber}f">
+                                        <div class="row" id="floorPlansList${storyNumber}1">
+
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="2bed${storyNumber}f">
+                                        <div class="row" id="floorPlansList${storyNumber}2">
+
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane active" id="3bed${storyNumber}f">
+                                        <div class="row" id="floorPlansList${storyNumber}3">
+
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="4bed${storyNumber}f">
+                                        <div class="row" id="floorPlansList${storyNumber}4">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row text-center">
+                                    <button class="btn btn-default pickPlan">PICK PLAN</button>
+                                    <button class="btn btn-default modify" id="modify">MODIFY</button>
+                                </div>`)
+    });
+
+    archPanelIDs.forEach(id => {
+        var storyNumber = id[id.length - 1];
+        $('#' + id).append(`<ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation"><a href="#1bed${storyNumber}a" aria-controls="1bed${storyNumber}a" role="tab" data-toggle="tab">1 Bed</a></li>
+                                    <li role="presentation"><a href="#2bed${storyNumber}a" aria-controls="2bed${storyNumber}a" role="tab" data-toggle="tab">2 Bed</a></li>
+                                    <li role="presentation" class="active"><a href="#3bed${storyNumber}a" aria-controls="3bed${storyNumber}a" role="tab" data-toggle="tab">3 Bed</a></li>
+                                    <li role="presentation"><a href="#4bed${storyNumber}a" aria-controls="4bed${storyNumber}a" role="tab" data-toggle="tab">4+ Bed</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane" id="1bed${storyNumber}a">
+                                        <div class="row" id="archFormList${storyNumber}1">
+
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="2bed${storyNumber}a">
+                                        <div class="row" id="archFormList${storyNumber}2">
+
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane active" id="3bed${storyNumber}a">
+                                        <div class="row" id="archFormList${storyNumber}3">
+
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="4bed${storyNumber}a">
+                                        <div class="row" id="archFormList${storyNumber}4">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row text-center">
+                                    <button class="btn btn-default pickPlan">PICK PLAN</button>
+                                    <button class="btn btn-default modify" id="modify">MODIFY</button>
+                                </div>`)
+    });
+
+
 
     $('.pickFacade').click(function () {
         $("#accordion2").hide();
@@ -26,9 +106,10 @@ $(document).ready(function () {
         TestOBjectsData(csvData[currentSelectedStyle]['Style'].toLowerCase());
     })
 
-    $('#modify').click(function () {
+    $('.modify').click(function () {
         $("#accordion1").hide();
         $("#accordion3").show();
+        PrepareUniqueValues();
     })
 
 
@@ -43,28 +124,96 @@ $(document).ready(function () {
     $("#interior").click(function () {
 
     })
-    //$("#facades").attr("src", 'images/axons/' + src.split('/').slice(-1)[0]);
-    //$("#interior").attr("src", 'images/sides/' + src.split('/').slice(-1)[0]);
-  //prepareAppBucketTree();
-  //$('#refreshBuckets').click(function () {
-  //  $('#appBuckets').jstree(true).refresh();
-  //});
 
-  //$('#createNewBucket').click(function () {
-  //  createNewBucket();
-  //});
+    document.addEventListener('keydown', event => {
+        if (event.keyCode == 88) {
+            var j = 0;
+            csvData.forEach(item => {
+                if (j === 0) {
+                    Object.keys(item).forEach(key => {
+                        uniqueCSVData[key] = [];
+                    });
+                    j++;
+                }
 
-  //$('#createBucketModal').on('shown.bs.modal', function () {
-  //  $("#newBucketKey").focus();
-  //})
+                Object.keys(item).forEach(key => {
+                    var newArr = uniqueCSVData[key];
+                    if (item[key] !== "") {
+                        item[key].split(" ").forEach(el => {
+                            newArr.push(el);
+                        })
+                        //newArr.push(item[key]);
+                    }
+                    uniqueCSVData[key] = newArr;
+                });
+            });
+            Object.keys(uniqueCSVData).forEach(key => {
+                arr = uniqueCSVData[key];
+                uniq = [...new Set(arr)];
+                uniqueCSVData[key] = uniq;
+            })
+            //console.log(uniqueCSVData);
+        }
+    });
+
 });
+var uniqueCSVData = {};
+function PrepareUniqueValues() {
+    var j = 0;
+    csvData.forEach(item => {
+        if (j === 0) {
+            Object.keys(item).forEach(key => {
+                uniqueCSVData[key] = [];
+            });
+            j++;
+        }
 
+        Object.keys(item).forEach(key => {
+            var newArr = uniqueCSVData[key];
+            if (item[key] !== "") {
+                item[key].split(" ").forEach(el => {
+                    newArr.push(el);
+                })
+                //newArr.push(item[key]);
+            }
+            uniqueCSVData[key] = newArr;
+        });
+    });
+    Object.keys(uniqueCSVData).forEach(key => {
+        arr = uniqueCSVData[key];
+        uniq = [...new Set(arr)];
+        uniqueCSVData[key] = uniq;
+    })
+
+    $('#baseMaterialsList').empty();
+    uniqueCSVData['BaseMaterial_T'].forEach(el => {
+        $('#baseMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="images/walls_materials/${el}.png" alt ="${el}" onClick="ModifyCSV(this, 'BaseMaterial_T', '${el}')" />
+                                    </div >`);
+    })
+
+    $('#secondaryWindowsList').empty();
+    for (var x = 1; x <= 9; x++) {
+        $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${x}">
+                    <img class="img-responsive" src ="images/windows/${x}.png" alt ="${x}" />
+                                    </div >`);
+    }
+
+    //console.log(uniqueCSVData);
+}
 function logKey(e) {
     if (e.code == 'KeyX') {
-        TestOBjectsData();
+
     }
 }
 
+function ModifyCSV(element, key, value) {
+    csvData[currentSelectedStyle][key] = value;
+    $(".base-materials").each(function () {
+        $(this).removeClass("activeStyle");
+    });
+    $(element).addClass("activeStyle");
+}
 
 
 function TestOBjectsData(facadestyle) {
@@ -77,64 +226,71 @@ function TestOBjectsData(facadestyle) {
         success: function (result) {
 
             var i = 1;
-            $('#floorPlansList').empty();
+            //$('#floorPlansList').empty();
             result.forEach(function (item) {
+                //console.log(item.text);
+                var modelName = item.text.split('.')[0].split('_')[0];
+                var storiesNumber = item.text.split('.')[0].split('_')[1];
+                var bedCount = item.text.split('.')[0].split('_')[2];
+                var area = item.text.split('.')[0].split('_')[3];
+                $(`#floorPlansList${storiesNumber}${bedCount}`).append(`<div id="#${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.text}','${item.id}', 'plan', this)" data-toggle="tooltip" data-placement="right" title="${item.text}">
+                    <img class="img-responsive floor-plan-style" src ="images/plans/${modelName}.png" alt ="${item.text}" />
+                                    </div >`);
+
+                $(`#archFormList${storiesNumber}${bedCount}`).append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.text}','${item.id}', 'arch', this)" data-toggle="tooltip" data-placement="right" title="${item.text}">
+                    <img class="img-responsive arch-form-style" src ="images/plans/${modelName}.png" alt ="${item.text}" />
+                                    </div >`);
+                //console.log(modelName);
+                //console.log(storiesNumber);
+                //console.log(bedCount);
+                //console.log(area);
                 // img source should be the same as the text of the model
                 // onClick here will load the corresponding image
-                $('#floorPlansList').append(`<div id="#${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}', 'plan')" data-toggle="tooltip" data-placement="right" title="${item.text}">
-                    <img class="img-responsive" src ="images/plans/${i}.png" alt ="${item.text}" />
-                                    </div >`);
 
-                if (i % 3 == 0) {
-                    // onClick here will load the corresponding image
-                    $('#floorPlansList').append(`<br />`);
-                }
-                i++;
+                //$('#floorPlansList').append(`<div id="#${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}', 'plan')" data-toggle="tooltip" data-placement="right" title="${item.text}">
+                //    <img class="img-responsive" src ="images/plans/${modelName}.png" alt ="${item.text}" />
+                //                    </div >`);
+
+                //if (i % 3 == 0) {
+                //    $('#floorPlansList').append(`<br />`);
+                //}
+                //i++;
             });
 
-            i = 1;
-            $('#archFormList').empty();
-            result.forEach(function (item) {
-                // img source should be the same as the text of the model
-                // onClick here will load the corresponding 3d model
-                $('#archFormList').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}', 'arch')" data-toggle="tooltip" data-placement="right" title="${item.text}">
-                    <img class="img-responsive" src ="images/axons/${i}.png" alt ="${item.text}" />
-                                    </div >`);
+            //i = 1;
+            //$('#archFormList').empty();
+            //result.forEach(function (item) {
+            //    // img source should be the same as the text of the model
+            //    // onClick here will load the corresponding 3d model
+            //    $('#archFormList').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}', 'arch')" data-toggle="tooltip" data-placement="right" title="${item.text}">
+            //        <img class="img-responsive" src ="images/axons/${i}.png" alt ="${item.text}" />
+            //                        </div >`);
 
-                if (i % 3 == 0) {
-                    // onClick here will load the corresponding image
-                    $('#archFormList').append(`<br />`);
-                }
-                i++;
-            });
+            //    if (i % 3 == 0) {
+            //        // onClick here will load the corresponding image
+            //        $('#archFormList').append(`<br />`);
+            //    }
+            //    i++;
+            //});
 
 
-            $('#baseMaterialsList').empty();
 
-            for (var x = 1; x <= 6; x++) {
-                $('#baseMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${x}">
-                    <img class="img-responsive" src ="images/walls_materials/${x}.png" alt ="${x}" />
-                                    </div >`);
-            }
-
-            $('#secondaryWindowsList').empty();
-
-            for (var x = 1; x <= 9; x++) {
-                $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${x}">
-                    <img class="img-responsive" src ="images/windows/${x}.png" alt ="${x}" />
-                                    </div >`);
-            }
+          
             
         }
     });
 }
 
-function loadModel(modelID, type) {
-
+function loadModel(modelName, modelID, type, element) {
+    currentSelectedModel = modelName;
+    //console.log(element.firstChild.nextSibling);
     if (type == "plan") {
-        //var src = $("#" + modelID).children(":first").attr("src");
+        $(".floor-plan-style").each(function () {
+            $(this).removeClass("activeStyle");
+        });
+        $(element.firstChild.nextSibling).addClass("activeStyle");
+        //element.children(":first")
         var src = document.getElementById('#'+modelID).firstElementChild.getAttribute('src');
-        //console.log(src.split('/').slice(-1)[0]);
         $("#mainViewImg").attr("src", src);
         $("#plans").attr("src", src);
         $("#facades").attr("src", 'images/axons/' + src.split('/').slice(-1)[0]);
@@ -149,6 +305,10 @@ function loadModel(modelID, type) {
 
     if (type == "arch") {
 
+        $(".arch-form-style").each(function () {
+            $(this).removeClass("activeStyle");
+        });
+        $(element.firstChild.nextSibling).addClass("activeStyle");
         $("#mainViewImg").hide();
         $("#forgeViewer").show();
 

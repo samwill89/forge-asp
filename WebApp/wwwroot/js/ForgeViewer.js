@@ -36,7 +36,7 @@ function launchViewer(urn) {
             tree.enumNodeChildren(
                 rootId,
                 function (dbId) {
-                    console.log('dbId:', dbId, 'childCount:', tree.getChildCount(dbId));
+                    //console.log('dbId:', dbId, 'childCount:', tree.getChildCount(dbId));
                 },
                 true
             );

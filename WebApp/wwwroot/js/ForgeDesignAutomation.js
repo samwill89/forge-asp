@@ -32,6 +32,10 @@ $(document).ready(function () {
 
     document.addEventListener('keydown', event => {
         if (event.keyCode == 65) {
+            //console.log(csvData[currentSelectedStyle]);
+            currentSelectedBucket = csvData[currentSelectedStyle]['Style'].toLowerCase() + 'bucket';
+            console.log(currentSelectedBucket);
+            console.log(currentSelectedModel);
             console.log(csvData[currentSelectedStyle]);
             startWorkitem();
         }
@@ -41,6 +45,8 @@ $(document).ready(function () {
 });
 var csvData;
 var currentSelectedStyle = 0;
+var currentSelectedBucket = "";
+var currentSelectedModel = "";
 function getAllData() {
     jQuery.ajax({
         url: 'api/forge/appdata/all',
@@ -84,7 +90,6 @@ function getAllData() {
 
 function GetStyleData(index) {
     currentSelectedStyle = index;
-    console.log(csvData[currentSelectedStyle]);
     $(".styles").each(function () {
         $(this).removeClass("activeStyle");
     });
@@ -208,8 +213,8 @@ function startWorkitem() {
         || activityId.toLowerCase() === "deleteelementsactivity+dev" ) {
         startConnection(function () {
             var formData = new FormData();
-            formData.append('objectId', '124.rvt');
-            formData.append('bucketId', 'facadedemobucket');
+            formData.append('objectId', currentSelectedModel);
+            formData.append('bucketId', currentSelectedBucket);
             formData.append('activityId', activityId);
             formData.append('browerConnectionId', connectionId);
             formData.append('data', JSON.stringify(csvData[currentSelectedStyle]));
