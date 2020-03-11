@@ -28,16 +28,18 @@ $(document).ready(function () {
 
     startConnection();
 
+    $(".selectBaseMaterial").click(function () {
+        currentSelectedBucket = csvData[currentSelectedStyle]['Style'].toLowerCase() + 'bucket';
+        console.log(currentSelectedBucket);
+        console.log(currentSelectedModel);
+        console.log(csvData[currentSelectedStyle]);
+        startWorkitem();
+    })
+
     
 
     document.addEventListener('keydown', event => {
-        if (event.keyCode == 65) {
-            //console.log(csvData[currentSelectedStyle]);
-            currentSelectedBucket = csvData[currentSelectedStyle]['Style'].toLowerCase() + 'bucket';
-            console.log(currentSelectedBucket);
-            console.log(currentSelectedModel);
-            console.log(csvData[currentSelectedStyle]);
-            startWorkitem();
+        if (event.keyCode == 65) {      
         }
     });
     getAllData();
