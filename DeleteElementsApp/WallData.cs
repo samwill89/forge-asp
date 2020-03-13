@@ -7,25 +7,33 @@ using Autodesk.Revit.DB;
 
 namespace DeleteElements
 {
-    class WallData
+    public class WallData
     {
-        public WallType MainWallType { get; }
+        public WallType MainWallType { get; set; }
 
-        public WallType BaseWallType { get; }
+        public WallType BaseWallType { get; set; }
 
-        public WallType AccentWallType { get; }
+        public WallType AccentWallType { get; set; }
 
-        public string MaterialCategory { get; }
+        public string MainMaterialCategory { get; set; }
 
-        public string MaterialColor { get; }
+        public string MainMaterialColor { get; set; }
 
-        public WallData(WallType mainWallType, WallType baseWallType, WallType accentWallType, string materialCategory, string materialColor)
+        public string BaseMaterialCategory { get; set; }
+
+        public string BaseMaterialColor { get; set; }
+
+        public WallData(WallType mainWallType, WallType baseWallType, WallType accentWallType,
+            string mainMaterialCategory, string mainMaterialColor, string baseMaterialCategory, string baseMaterialColor)
         {
             MainWallType = mainWallType ?? throw new ArgumentNullException(nameof(mainWallType));
             BaseWallType = baseWallType ?? mainWallType;
             AccentWallType = accentWallType ?? mainWallType;
-            MaterialCategory = materialCategory;
-            MaterialColor = materialColor;
+
+            MainMaterialCategory = mainMaterialCategory;
+            MainMaterialColor = mainMaterialColor;
+            BaseMaterialCategory = baseMaterialCategory;
+            BaseMaterialColor = baseMaterialColor;
         }
     }
 }

@@ -17,23 +17,38 @@
 /////////////////////////////////////////////////////////////////////
 
 $(document).ready(function () {
-    //prepareLists();
+
+    
+    prepareLists();
 
     //$('#clearAccount').click(clearAccount);
     //$('#defineActivityShow').click(defineActivityModal);
-    //$('#createAppBundleActivity').click(createAppBundleActivity);
+    $('#createAppBundleActivity').click(createAppBundleActivity);
     //$('#startWorkitem').click(startWorkitem);
 
     startConnection();
 
+    $(".selectBaseMaterial").click(function () {
+        currentSelectedBucket = csvData[currentSelectedStyle]['Style'].toLowerCase() + 'bucket';
+        console.log(currentSelectedBucket);
+        console.log(currentSelectedModel);
+        console.log(csvData[currentSelectedStyle]);
+        startWorkitem();
+    })
+
     
 
-    document.addEventListener('keydown', logKey);
-    //console.log("HWHAAT!");
+    document.addEventListener('keydown', event => {
+        if (event.keyCode == 65) {      
+        }
+    });
     getAllData();
 
 });
-
+var csvData;
+var currentSelectedStyle = 0;
+var currentSelectedBucket = "";
+var currentSelectedModel = "";
 function getAllData() {
     jQuery.ajax({
         url: 'api/forge/appdata/all',
@@ -44,18 +59,28 @@ function getAllData() {
         //    return { "style": "FarmHouse" };
         //},
         success: function (result) {
-            console.log(result);
+            //console.log(result[0]);
+            csvData = result;
+            csvData.forEach((element) => {
+                Object.keys(element).forEach(function (key) {
+                    if (key.indexOf('-') != -1) {
+                        var newstr = key.replace('-', '_');
+                        element[newstr] = element[key];
+                        delete element[key];
+                    }
+                });
+            });
             //console.log(Object.keys(result[0]));
             var i = 1;
             var styles = Object.keys(result[0]);
             styles.splice(0, 1);
             $('#popularityList').empty();
-            styles.forEach(function (item) {
+            result.forEach(function (item) {
                 // img source should be the same as the text of the model
                 // onClick here will load the corresponding 3d model
                 if (i <= 9) {
-                    $('#popularityList').append(`<div id="${item}" class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${item}">
-                    <img class="img-responsive" src ="images/facades/${i}.jpg" alt ="${item}" />
+                    $('#popularityList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${item.Style}">
+                    <img id="style${i - 1}" class="img-responsive styles" src ="images/facades/${item.Style}.jpg" alt ="${item.Style}" onClick="GetStyleData('${i-1}')" />
                                     </div >`);
                     i++;
                 }
@@ -65,10 +90,19 @@ function getAllData() {
     });
 }
 
+function GetStyleData(index) {
+    currentSelectedStyle = index;
+    $(".styles").each(function () {
+        $(this).removeClass("activeStyle");
+    });
+    $('#style' + index).addClass("activeStyle");
+}
+
 function logKey(e) {
-    if (e.code == 'KeyA') {
+    console.log("asds");
+    if (e.code == 'KeyX') {
         console.log("Clicked!");
-        getAllData();
+        //startWorkitem();
     }
 }
 
@@ -166,41 +200,26 @@ function createActivity(cb) {
 
 
 function startWorkitem() {
-    let sourceNode = $('#appBuckets').jstree(true).get_selected(true)[0];
+    //let sourceNode = $('#appBuckets').jstree(true).get_selected(true)[0];
     // use == here because sourceNode may be undefined or null
-    if (sourceNode == null || sourceNode.type !== 'object' ) {
-        alert('Can not get the selected file, please make sure you select a file as input');
-        return;
-    }
+    //if (sourceNode == null || sourceNode.type !== 'object' ) {
+    //    alert('Can not get the selected file, please make sure you select a file as input');
+    //    return;
+    //}
 
-    let activityId = $('#activity').val();
+    //let activityId = $('#activity').val();
+    let activityId = "DeleteElementsActivity+dev";
     if (activityId == null) { alert('Please select an activity'); return };
 
     if (activityId.toLowerCase() === "countitactivity+dev"
         || activityId.toLowerCase() === "deleteelementsactivity+dev" ) {
         startConnection(function () {
             var formData = new FormData();
-            formData.append('objectId', sourceNode.text);
-            formData.append('bucketId', sourceNode.parent);
+            formData.append('objectId', currentSelectedModel);
+            formData.append('bucketId', currentSelectedBucket);
             formData.append('activityId', activityId);
             formData.append('browerConnectionId', connectionId);
-            formData.append('data', JSON.stringify({
-                //walls: $('#selectWalls')[0].checked,
-                //floors: $('#selectFloors')[0].checked,
-                //doors: $('#selectDoors')[0].checked,
-                //windows: $('#selectWindows')[0].checked
-                //console.log($('#Facade-Style').val());
-                //console.log($('#Exterior-Material').val());
-                //console.log($('#Material-Color').val());
-                //console.log($('#Roofing-Material').val());
-                //console.log($('#Fenestration').val());
-                //console.log($('#Column-Style').val());
-                extMaterials: $('#Exterior-Material').val(),
-                materialColor: $('#Material-Color').val(),
-                roofMaterial: $('#Roofing-Material').val(),
-                fenestrationTrim: $('#Fenestration').val(),
-                columnStyle: $('#Column-Style').val()
-            }));
+            formData.append('data', JSON.stringify(csvData[currentSelectedStyle]));
             writeLog('Start checking input file...');
             $.ajax({
                 url: 'api/forge/designautomation/startworkitem',
@@ -235,6 +254,7 @@ function startConnection(onReady) {
             connection.invoke('getConnectionId')
                 .then(function (id) {
                     connectionId = id; // we'll need this...
+                    //console.log(connectionId)
                     if (onReady) onReady();
                 });
         });
@@ -249,10 +269,10 @@ function startConnection(onReady) {
     });
     connection.on("onComplete", function (message) {
         writeLog(message);
-        let instance = $('#appBuckets').jstree(true);
-        selectNode = instance.get_selected(true)[0];
-        parentNode = instance.get_parent(selectNode);
-        instance.refresh_node(parentNode);
+        //let instance = $('#appBuckets').jstree(true);
+        //selectNode = instance.get_selected(true)[0];
+        //parentNode = instance.get_parent(selectNode);
+        //instance.refresh_node(parentNode);
     });
     connection.on("extractionFinished", function (data) {
         launchViewer(data.resourceUrn);
