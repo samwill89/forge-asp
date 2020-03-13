@@ -248,6 +248,93 @@ function PrepareUniqueValues() {
     })
 
 
+    //Preparing the windows and trims sections
+    $('#secondaryWindowsList').empty();
+    uniqueCSVData['WinStyle_T'].forEach(el => {
+        $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'WinStyle_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#winTrimTop').empty();
+    uniqueCSVData['WinTrimTop_T'].forEach(el => {
+        $('#winTrimTop').append(`<option>${el}</option>`);
+    })
+    $('#winTrimSide').empty();
+    uniqueCSVData['WinTrimSide_T'].forEach(el => {
+        $('#winTrimSide').append(`<option>${el}</option>`);
+    })
+    $('#winTrimBottom').empty();
+    uniqueCSVData['WinTrimBottom_T'].forEach(el => {
+        $('#winTrimBottom').append(`<option>${el}</option>`);
+    })
+    $('#winTrimColor').empty();
+    uniqueCSVData['WinTrimColor_T'].forEach(el => {
+        $('#winTrimColor').append(`<option>${el}</option>`);
+    })
+    $('#winShutterColor').empty();
+    uniqueCSVData['WinShutterColor_T'].forEach(el => {
+        $('#winShutterColor').append(`<option>${el}</option>`);
+    })
+    $('#winShutter').empty();
+    uniqueCSVData['WinShutter_T'].forEach(el => {
+        $('#winShutter').append(`<option>${el}</option>`);
+    })
+    $('#winKey').empty();
+    uniqueCSVData['WinKey_T'].forEach(el => {
+        $('#winKey').append(`<option>${el}</option>`);
+    })
+    $('#winBay').empty();
+    uniqueCSVData['WinBay_T'].forEach(el => {
+        $('#winBay').append(`<option>${el}</option>`);
+    })
+    $('#doorsList').empty();
+    uniqueCSVData['DoorStyle_T'].forEach(el => {
+        $('#doorsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'DoorStyle_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#doorTrimTop').empty();
+    uniqueCSVData['DoorTrimTop_T'].forEach(el => {
+        $('#doorTrimTop').append(`<option>${el}</option>`);
+    })
+    $('#doorTrimSide').empty();
+    uniqueCSVData['DoorTrimSide_T'].forEach(el => {
+        $('#doorTrimSide').append(`<option>${el}</option>`);
+    })
+    $('#doorTrimColor').empty();
+    uniqueCSVData['DoorTrimColor_T'].forEach(el => {
+        $('#doorTrimColor').append(`<option>${el}</option>`);
+    })
+    $('#datumSplBaseProfile').empty();
+    uniqueCSVData['DatumSplBaseProfile_T'].forEach(el => {
+        $('#datumSplBaseProfile').append(`<option>${el}</option>`);
+    })
+
+
+    //Preparing the porch section
+    $('#porchList').empty();
+    uniqueCSVData['PorchStyle_T'].forEach(el => {
+        $('#porchList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'PorchStyle_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#porchSpan').empty();
+    uniqueCSVData['PorchSpan_T'].forEach(el => {
+        $('#porchSpan').append(`<option>${el}</option>`);
+    })
+    $('#railTop').empty();
+    uniqueCSVData['RailTop_T'].forEach(el => {
+        $('#railTop').append(`<option>${el}</option>`);
+    })
+    $('#railBottom').empty();
+    uniqueCSVData['RailBottom_T'].forEach(el => {
+        $('#railBottom').append(`<option>${el}</option>`);
+    })
+    $('#railBal').empty();
+    uniqueCSVData['RailBal_T'].forEach(el => {
+        $('#railBal').append(`<option>${el}</option>`);
+    })
+
 
 
 
@@ -273,8 +360,8 @@ function logKey(e) {
 }
 
 function populateExteriorMenu() {
-    console.log(csvData);
-    console.log(uniqueCSVData);
+    //console.log(csvData);
+    //console.log(uniqueCSVData);
 }
 
 function ModifyCSV(element, key, value) {

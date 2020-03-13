@@ -332,28 +332,78 @@
                             </h4>
                         </div>
                         <div id="collapse15" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading15">
-                            <div class="panel-body">
+                            <div class="panel-body" id="windowsAndTrims">
 
-                                <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation"><a href="#primary" aria-controls="primary" role="tab" data-toggle="tab">PRIMARY</a></li>
-                                    <li role="presentation" class="active"><a href="#secondary" aria-controls="secondary" role="tab" data-toggle="tab">SECONDARY</a></li>
+                                    <li role="presentation"><a href="#primary" aria-controls="primary" role="tab" data-toggle="tab">DOORS</a></li>
+                                    <li role="presentation" class="active"><a href="#secondary" aria-controls="secondary" role="tab" data-toggle="tab">WINDOWS</a></li>
                                     <li role="presentation"><a href="#ternary" aria-controls="ternary" role="tab" data-toggle="tab">TERNARY</a></li>
                                 </ul>
 
-                                <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane" id="primary">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="primary">
+
+                                        <div class="row" id="doorsList">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="doorTrimTop">Door Trim Top:</label>
+                                            <select class="form-control" id="doorTrimTop" onChange="updateCSV(this, 'DoorTrimTop_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="doorTrimSide">Door Trim Side:</label>
+                                            <select class="form-control" id="doorTrimSide" onChange="updateCSV(this, 'DoorTrimSide_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="doorTrimColor">Door Trim Color:</label>
+                                            <select class="form-control" id="doorTrimColor" onChange="updateCSV(this, 'DoorTrimColor_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="datumSplBaseProfile">Datum Spl Base Profile:</label>
+                                            <select class="form-control" id="datumSplBaseProfile" onChange="updateCSV(this, 'DatumSplBaseProfile_T')"></select>
+                                        </div>
+
+                                    </div>
                                     <div role="tabpanel" class="tab-pane active" id="secondary">
                                         <div class="row" id="secondaryWindowsList">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="winTrimTop">Windows Trim Top:</label>
+                                            <select class="form-control" id="winTrimTop" onChange="updateCSV(this, 'WinTrimTop_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winTrimSide">Windows Trim Side:</label>
+                                            <select class="form-control" id="winTrimSide" onChange="updateCSV(this, 'WinTrimSide_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winTrimBottom">Windows Trim Bottom:</label>
+                                            <select class="form-control" id="winTrimBottom" onChange="updateCSV(this, 'WinTrimBottom_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winTrimColor">Windows Trim Color:</label>
+                                            <select class="form-control" id="winTrimColor" onChange="updateCSV(this, 'WinTrimColor_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winShutterColor">Windows Shutter Color:</label>
+                                            <select class="form-control" id="winShutterColor" onChange="updateCSV(this, 'WinShutterColor_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winShutter">Windows Shutter:</label>
+                                            <select class="form-control" id="winShutter" onChange="updateCSV(this, 'WinShutter_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winKey">Windows Key:</label>
+                                            <select class="form-control" id="winKey" onChange="updateCSV(this, 'WinKey_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winBay">Windows Bay:</label>
+                                            <select class="form-control" id="winBay" onChange="updateCSV(this, 'WinBay_T')"></select>
+                                        </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="ternary">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="ternary">
+
+                                    </div>
                                 </div>
-
-
-
-
 
                                 <div class="row text-center">
                                     <button class="btn btn-default selectBaseMaterial">SELECT</button>
@@ -369,9 +419,25 @@
                             </h4>
                         </div>
                         <div id="collapse16" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading16">
-                            <div class="panel-body">
-                                <div class="row">
+                            <div class="panel-body" id="porch">
+                                <div class="row" id="porchList">
+                                </div>
 
+                                <div class="form-group">
+                                    <label for="porchSpan">Porch Span:</label>
+                                    <select class="form-control" id="porchSpan" onChange="updateCSV(this, 'PorchSpan_T')"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="railTop">Rail Top:</label>
+                                    <select class="form-control" id="railTop" onChange="updateCSV(this, 'RailTop_T')"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="railBottom">Rail Bottom:</label>
+                                    <select class="form-control" id="railBottom" onChange="updateCSV(this, 'RailBottom_T')"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="railBal">Rail Bal:</label>
+                                    <select class="form-control" id="railBal" onChange="updateCSV(this, 'RailBal_T')"></select>
                                 </div>
                             </div>
                         </div>
