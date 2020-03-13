@@ -39,7 +39,11 @@ $(document).ready(function () {
     
 
     document.addEventListener('keydown', event => {
-        if (event.keyCode == 65) {      
+        if (event.keyCode == 65) {    
+            currentSelectedBucket = csvData[currentSelectedStyle]['Style'].toLowerCase() + 'bucket';
+            console.log(currentSelectedBucket);
+            console.log(currentSelectedModel);
+            console.log(csvData[currentSelectedStyle]);
         }
     });
     getAllData();

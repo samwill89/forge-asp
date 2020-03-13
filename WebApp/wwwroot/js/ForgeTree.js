@@ -110,6 +110,7 @@ $(document).ready(function () {
         $("#accordion1").hide();
         $("#accordion3").show();
         PrepareUniqueValues();
+        populateExteriorMenu();
     })
 
 
@@ -191,13 +192,40 @@ function PrepareUniqueValues() {
                     <img class="img-responsive base-materials" src ="images/walls_materials/${el}.png" alt ="${el}" onClick="ModifyCSV(this, 'BaseMaterial_T', '${el}')" />
                                     </div >`);
     })
+    $('#baseMaterialsColors').empty();
+    uniqueCSVData['BaseMaterialColor_T'].forEach(el => {
+        $('#baseMaterialsColors').append(`<option>${el}</option>`);
+    })
 
-    $('#secondaryWindowsList').empty();
-    for (var x = 1; x <= 9; x++) {
-        $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${x}">
-                    <img class="img-responsive" src ="images/windows/${x}.png" alt ="${x}" />
+
+    $('#mainMaterialsList').empty();
+    uniqueCSVData['MainMaterial_T'].forEach(el => {
+        $('#mainMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'MainMaterial_T', '${el}')" />
                                     </div >`);
-    }
+    })
+    $('#mainMaterialsColors').empty();
+    uniqueCSVData['MainMaterialColor_T'].forEach(el => {
+        $('#mainMaterialsColors').append(`<option>${el}</option>`);
+    })
+
+    $('#accentMaterialsList').empty();
+    uniqueCSVData['AccentMaterial_T'].forEach(el => {
+        $('#accentMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'AccentMaterial_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#accentMaterialsColors').empty();
+    uniqueCSVData['AccentMaterialColor_T'].forEach(el => {
+        $('#accentMaterialsColors').append(`<option>${el}</option>`);
+    })
+
+    //$('#secondaryWindowsList').empty();
+    //for (var x = 1; x <= 9; x++) {
+    //    $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${x}">
+    //                <img class="img-responsive" src ="images/windows/${x}.png" alt ="${x}" />
+    //                                </div >`);
+    //}
 
     //console.log(uniqueCSVData);
 }
@@ -207,12 +235,21 @@ function logKey(e) {
     }
 }
 
+function populateExteriorMenu() {
+    console.log(csvData);
+    console.log(uniqueCSVData);
+}
+
 function ModifyCSV(element, key, value) {
     csvData[currentSelectedStyle][key] = value;
     $(".base-materials").each(function () {
         $(this).removeClass("activeStyle");
     });
     $(element).addClass("activeStyle");
+}
+
+function updateCSV(element, key) {
+    csvData[currentSelectedStyle][key] = element.selectedOptions[0].value;
 }
 
 

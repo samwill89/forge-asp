@@ -232,7 +232,7 @@
                             </h4>
                         </div>
                         <div id="collapse13" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading13">
-                            <div class="panel-body">
+                            <div id="wallsAndMaterials" class="panel-body">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li role="presentation"><a href="#mainmat" aria-controls="mainmat" role="tab" data-toggle="tab">MAIN</a></li>
@@ -242,16 +242,36 @@
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane" id="mainmat">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="mainmat">
+                                        <div class="row" id="mainMaterialsList">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mainMaterialsColors">Color:</label>
+                                            <select class="form-control" id="mainMaterialsColors" onChange="updateCSV(this, 'MainMaterialColor_T')">
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div role="tabpanel" class="tab-pane active" id="basemat">
                                         <div class="row" id="baseMaterialsList">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="baseMaterialsColors">Color:</label>
+                                            <select class="form-control" id="baseMaterialsColors" onChange="updateCSV(this, 'BaseMaterialColor_T')">
+
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="accentmat">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="accentmat">
+                                        <div class="row" id="accentMaterialsList">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="accentMaterialsColors">Color:</label>
+                                            <select class="form-control" id="accentMaterialsColors" onChange="updateCSV(this, 'AccentMaterialColor_T')">
+
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-
-
-
 
 
                                 <div class="row text-center">
