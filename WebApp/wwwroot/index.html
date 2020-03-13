@@ -280,6 +280,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="heading14" data-toggle="collapse" data-parent="#accordion3" href="#collapse14" aria-expanded="false" aria-controls="collapse14">
                             <h4 class="panel-title">
@@ -287,11 +288,43 @@
                             </h4>
                         </div>
                         <div id="collapse14" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading14">
-                            <div class="panel-body">
-                                Content goes here.
+                            <div id="columns" class="panel-body">
+
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation"><a href="#colCapital" aria-controls="colCapital" role="tab" data-toggle="tab">CAPITAL</a></li>
+                                    <li role="presentation" class="active"><a href="#colBase" aria-controls="colBase" role="tab" data-toggle="tab">BASE</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane" id="colCapital">
+                                        <div class="row" id="colCapitalList">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="columnColor">Color:</label>
+                                            <select class="form-control" id="columnColor" onChange="updateCSV(this, 'ColumnColor_T')">
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane active" id="colBase">
+                                        <div class="row" id="colBaseList">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="columnPlinthHeight">Plinth Height:</label>
+                                            <select class="form-control" id="columnPlinthHeight" onChange="updateCSV(this, 'ColumnPlinthHeight_T')">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
+
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="heading15" data-toggle="collapse" data-parent="#accordion3" href="#collapse15" aria-expanded="false" aria-controls="collapse15">
                             <h4 class="panel-title">

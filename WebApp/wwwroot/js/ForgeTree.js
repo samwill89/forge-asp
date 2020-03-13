@@ -186,6 +186,8 @@ function PrepareUniqueValues() {
         uniqueCSVData[key] = uniq;
     })
 
+
+    //Preparing the walls & materials section
     $('#baseMaterialsList').empty();
     uniqueCSVData['BaseMaterial_T'].forEach(el => {
         $('#baseMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
@@ -219,6 +221,41 @@ function PrepareUniqueValues() {
     uniqueCSVData['AccentMaterialColor_T'].forEach(el => {
         $('#accentMaterialsColors').append(`<option>${el}</option>`);
     })
+
+
+
+    //Preparing the Columns section
+    $('#colCapitalList').empty();
+    uniqueCSVData['ColumnCapitalStyle_T'].forEach(el => {
+        $('#colCapitalList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'ColumnCapitalStyle_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#columnColor').empty();
+    uniqueCSVData['ColumnColor_T'].forEach(el => {
+        $('#columnColor').append(`<option>${el}</option>`);
+    })
+
+    $('#colBaseList').empty();
+    uniqueCSVData['ColumnBaseStyle_T'].forEach(el => {
+        $('#colBaseList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'ColumnBaseStyle_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#columnPlinthHeight').empty();
+    uniqueCSVData['ColumnPlinthHeight_T'].forEach(el => {
+        $('#columnPlinthHeight').append(`<option>${el}</option>`);
+    })
+
+
+
+
+
+
+
+
+
+
 
     //$('#secondaryWindowsList').empty();
     //for (var x = 1; x <= 9; x++) {
