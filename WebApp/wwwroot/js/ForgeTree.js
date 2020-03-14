@@ -103,6 +103,7 @@ $(document).ready(function () {
         $("#accordion2").hide();
         $("#accordion1").show();
         //console.log(csvData[currentSelectedStyle]['Style']);
+
         TestOBjectsData(csvData[currentSelectedStyle]['Style'].toLowerCase());
     })
 
@@ -158,6 +159,7 @@ $(document).ready(function () {
     });
 
 });
+var currentFacadeStyle;
 var uniqueCSVData = {};
 function PrepareUniqueValues() {
     var j = 0;
@@ -378,6 +380,7 @@ function updateCSV(element, key) {
 
 
 function TestOBjectsData(facadestyle) {
+    currentFacadeStyle = facadestyle;
     jQuery.ajax({
         url: '/api/forge/oss/buckets',
         method: 'GET',
@@ -385,6 +388,7 @@ function TestOBjectsData(facadestyle) {
             'id': `${facadestyle}bucket`,
         },
         success: function (result) {
+
 
             var i = 1;
             //$('#floorPlansList').empty();
@@ -487,6 +491,7 @@ function loadModel(modelName, modelID, type, element) {
         $("#forgeViewer").empty();
         var urn = modelID;
         getForgeToken(function (access_token) {
+            console.log(access_token);
             jQuery.ajax({
                 url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
                 headers: { 'Authorization': 'Bearer ' + access_token },
