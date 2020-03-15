@@ -232,7 +232,7 @@
                             </h4>
                         </div>
                         <div id="collapse13" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading13">
-                            <div class="panel-body">
+                            <div id="wallsAndMaterials" class="panel-body">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li role="presentation"><a href="#mainmat" aria-controls="mainmat" role="tab" data-toggle="tab">MAIN</a></li>
@@ -242,24 +242,40 @@
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane" id="mainmat">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="mainmat">
+                                        <div class="row" id="mainMaterialsList">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mainMaterialsColors">Color:</label>
+                                            <select class="form-control" id="mainMaterialsColors" onChange="updateCSV(this, 'MainMaterialColor_T')"></select>
+                                        </div>
+                                    </div>
                                     <div role="tabpanel" class="tab-pane active" id="basemat">
                                         <div class="row" id="baseMaterialsList">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="baseMaterialsColors">Color:</label>
+                                            <select class="form-control" id="baseMaterialsColors" onChange="updateCSV(this, 'BaseMaterialColor_T')"></select>
+                                        </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="accentmat">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="accentmat">
+                                        <div class="row" id="accentMaterialsList">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="accentMaterialsColors">Color:</label>
+                                            <select class="form-control" id="accentMaterialsColors" onChange="updateCSV(this, 'AccentMaterialColor_T')"></select>
+                                        </div>
+                                    </div>
                                 </div>
 
 
-
-
-
-                                <div class="row text-center">
-                                    <button class="btn btn-default selectBaseMaterial">SELECT</button>
-                                </div>
+                                <!--<div class="row text-center">
+                    <button class="btn btn-default selectBaseMaterial">SELECT</button>
+                </div>-->
                             </div>
                         </div>
                     </div>
+
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="heading14" data-toggle="collapse" data-parent="#accordion3" href="#collapse14" aria-expanded="false" aria-controls="collapse14">
                             <h4 class="panel-title">
@@ -267,11 +283,39 @@
                             </h4>
                         </div>
                         <div id="collapse14" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading14">
-                            <div class="panel-body">
-                                Content goes here.
+                            <div id="columns" class="panel-body">
+
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation"><a href="#colCapital" aria-controls="colCapital" role="tab" data-toggle="tab">CAPITAL</a></li>
+                                    <li role="presentation" class="active"><a href="#colBase" aria-controls="colBase" role="tab" data-toggle="tab">BASE</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane" id="colCapital">
+                                        <div class="row" id="colCapitalList">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="columnColor">Color:</label>
+                                            <select class="form-control" id="columnColor" onChange="updateCSV(this, 'ColumnColor_T')"></select>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane active" id="colBase">
+                                        <div class="row" id="colBaseList">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="columnPlinthHeight">Plinth Height:</label>
+                                            <select class="form-control" id="columnPlinthHeight" onChange="updateCSV(this, 'ColumnPlinthHeight_T')"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
+
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="heading15" data-toggle="collapse" data-parent="#accordion3" href="#collapse15" aria-expanded="false" aria-controls="collapse15">
                             <h4 class="panel-title">
@@ -279,32 +323,82 @@
                             </h4>
                         </div>
                         <div id="collapse15" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading15">
-                            <div class="panel-body">
+                            <div class="panel-body" id="windowsAndTrims">
 
-                                <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation"><a href="#primary" aria-controls="primary" role="tab" data-toggle="tab">PRIMARY</a></li>
-                                    <li role="presentation" class="active"><a href="#secondary" aria-controls="secondary" role="tab" data-toggle="tab">SECONDARY</a></li>
+                                    <li role="presentation"><a href="#primary" aria-controls="primary" role="tab" data-toggle="tab">DOORS</a></li>
+                                    <li role="presentation" class="active"><a href="#secondary" aria-controls="secondary" role="tab" data-toggle="tab">WINDOWS</a></li>
                                     <li role="presentation"><a href="#ternary" aria-controls="ternary" role="tab" data-toggle="tab">TERNARY</a></li>
                                 </ul>
 
-                                <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane" id="primary">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="primary">
+
+                                        <div class="row" id="doorsList">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="doorTrimTop">Door Trim Top:</label>
+                                            <select class="form-control" id="doorTrimTop" onChange="updateCSV(this, 'DoorTrimTop_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="doorTrimSide">Door Trim Side:</label>
+                                            <select class="form-control" id="doorTrimSide" onChange="updateCSV(this, 'DoorTrimSide_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="doorTrimColor">Door Trim Color:</label>
+                                            <select class="form-control" id="doorTrimColor" onChange="updateCSV(this, 'DoorTrimColor_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="datumSplBaseProfile">Datum Spl Base Profile:</label>
+                                            <select class="form-control" id="datumSplBaseProfile" onChange="updateCSV(this, 'DatumSplBaseProfile_T')"></select>
+                                        </div>
+
+                                    </div>
                                     <div role="tabpanel" class="tab-pane active" id="secondary">
                                         <div class="row" id="secondaryWindowsList">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="winTrimTop">Windows Trim Top:</label>
+                                            <select class="form-control" id="winTrimTop" onChange="updateCSV(this, 'WinTrimTop_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winTrimSide">Windows Trim Side:</label>
+                                            <select class="form-control" id="winTrimSide" onChange="updateCSV(this, 'WinTrimSide_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winTrimBottom">Windows Trim Bottom:</label>
+                                            <select class="form-control" id="winTrimBottom" onChange="updateCSV(this, 'WinTrimBottom_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winTrimColor">Windows Trim Color:</label>
+                                            <select class="form-control" id="winTrimColor" onChange="updateCSV(this, 'WinTrimColor_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winShutterColor">Windows Shutter Color:</label>
+                                            <select class="form-control" id="winShutterColor" onChange="updateCSV(this, 'WinShutterColor_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winShutter">Windows Shutter:</label>
+                                            <select class="form-control" id="winShutter" onChange="updateCSV(this, 'WinShutter_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winKey">Windows Key:</label>
+                                            <select class="form-control" id="winKey" onChange="updateCSV(this, 'WinKey_T')"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="winBay">Windows Bay:</label>
+                                            <select class="form-control" id="winBay" onChange="updateCSV(this, 'WinBay_T')"></select>
+                                        </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="ternary">...</div>
+                                    <div role="tabpanel" class="tab-pane" id="ternary">
+
+                                    </div>
                                 </div>
 
-
-
-
-
-                                <div class="row text-center">
-                                    <button class="btn btn-default selectBaseMaterial">SELECT</button>
-                                </div>
+                                <!--<div class="row text-center">
+                    <button class="btn btn-default selectBaseMaterial">SELECT</button>
+                </div>-->
 
                             </div>
                         </div>
@@ -316,9 +410,25 @@
                             </h4>
                         </div>
                         <div id="collapse16" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading16">
-                            <div class="panel-body">
-                                <div class="row">
+                            <div class="panel-body" id="porch">
+                                <div class="row" id="porchList">
+                                </div>
 
+                                <div class="form-group">
+                                    <label for="porchSpan">Porch Span:</label>
+                                    <select class="form-control" id="porchSpan" onChange="updateCSV(this, 'PorchSpan_T')"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="railTop">Rail Top:</label>
+                                    <select class="form-control" id="railTop" onChange="updateCSV(this, 'RailTop_T')"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="railBottom">Rail Bottom:</label>
+                                    <select class="form-control" id="railBottom" onChange="updateCSV(this, 'RailBottom_T')"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="railBal">Rail Bal:</label>
+                                    <select class="form-control" id="railBal" onChange="updateCSV(this, 'RailBal_T')"></select>
                                 </div>
                             </div>
                         </div>
@@ -335,18 +445,23 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row text-center">
+                        <button class="btn btn-default selectBaseMaterial">SELECT</button>
+                    </div>
+
                     <!--<div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="heading18" data-toggle="collapse" data-parent="#accordion3" href="#collapse18" aria-expanded="false" aria-controls="collapse18">
-                            <h4 class="panel-title">
-                                3 STORIES - BY ARCHITECTURAL FORM
-                            </h4>
-                        </div>
-                        <div id="collapse18" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading18">
-                            <div class="panel-body">
-                                Content goes here.
-                            </div>
-                        </div>
-                    </div>-->
+        <div class="panel-heading" role="tab" id="heading18" data-toggle="collapse" data-parent="#accordion3" href="#collapse18" aria-expanded="false" aria-controls="collapse18">
+            <h4 class="panel-title">
+                3 STORIES - BY ARCHITECTURAL FORM
+            </h4>
+        </div>
+        <div id="collapse18" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading18">
+            <div class="panel-body">
+                Content goes here.
+            </div>
+        </div>
+    </div>-->
                 </div>
 
 

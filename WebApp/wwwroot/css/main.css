@@ -64,3 +64,15 @@ body {
 .activeStyle {
     border: 1px solid black;
 }
+
+.tab-content{
+    margin-top: 10px;
+}
+.selectBaseMaterial {
+    width: 90%;
+    margin-top: 10px;
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: #3c4c6d;
+    color: #fff;
+}

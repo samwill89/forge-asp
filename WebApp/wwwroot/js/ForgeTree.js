@@ -103,6 +103,7 @@ $(document).ready(function () {
         $("#accordion2").hide();
         $("#accordion1").show();
         //console.log(csvData[currentSelectedStyle]['Style']);
+
         TestOBjectsData(csvData[currentSelectedStyle]['Style'].toLowerCase());
     })
 
@@ -110,6 +111,7 @@ $(document).ready(function () {
         $("#accordion1").hide();
         $("#accordion3").show();
         PrepareUniqueValues();
+        populateExteriorMenu();
     })
 
 
@@ -157,6 +159,7 @@ $(document).ready(function () {
     });
 
 });
+var currentFacadeStyle;
 var uniqueCSVData = {};
 function PrepareUniqueValues() {
     var j = 0;
@@ -185,19 +188,170 @@ function PrepareUniqueValues() {
         uniqueCSVData[key] = uniq;
     })
 
+
+    //Preparing the walls & materials section
     $('#baseMaterialsList').empty();
     uniqueCSVData['BaseMaterial_T'].forEach(el => {
         $('#baseMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
                     <img class="img-responsive base-materials" src ="images/walls_materials/${el}.png" alt ="${el}" onClick="ModifyCSV(this, 'BaseMaterial_T', '${el}')" />
                                     </div >`);
     })
+    $('#baseMaterialsColors').empty();
+    uniqueCSVData['BaseMaterialColor_T'].forEach(el => {
+        $('#baseMaterialsColors').append(`<option>${el}</option>`);
+    })
 
-    $('#secondaryWindowsList').empty();
-    for (var x = 1; x <= 9; x++) {
-        $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${x}">
-                    <img class="img-responsive" src ="images/windows/${x}.png" alt ="${x}" />
+
+    $('#mainMaterialsList').empty();
+    uniqueCSVData['MainMaterial_T'].forEach(el => {
+        $('#mainMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'MainMaterial_T', '${el}')" />
                                     </div >`);
-    }
+    })
+    $('#mainMaterialsColors').empty();
+    uniqueCSVData['MainMaterialColor_T'].forEach(el => {
+        $('#mainMaterialsColors').append(`<option>${el}</option>`);
+    })
+
+    $('#accentMaterialsList').empty();
+    uniqueCSVData['AccentMaterial_T'].forEach(el => {
+        $('#accentMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'AccentMaterial_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#accentMaterialsColors').empty();
+    uniqueCSVData['AccentMaterialColor_T'].forEach(el => {
+        $('#accentMaterialsColors').append(`<option>${el}</option>`);
+    })
+
+
+
+    //Preparing the Columns section
+    $('#colCapitalList').empty();
+    uniqueCSVData['ColumnCapitalStyle_T'].forEach(el => {
+        $('#colCapitalList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'ColumnCapitalStyle_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#columnColor').empty();
+    uniqueCSVData['ColumnColor_T'].forEach(el => {
+        $('#columnColor').append(`<option>${el}</option>`);
+    })
+
+    $('#colBaseList').empty();
+    uniqueCSVData['ColumnBaseStyle_T'].forEach(el => {
+        $('#colBaseList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'ColumnBaseStyle_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#columnPlinthHeight').empty();
+    uniqueCSVData['ColumnPlinthHeight_T'].forEach(el => {
+        $('#columnPlinthHeight').append(`<option>${el}</option>`);
+    })
+
+
+    //Preparing the windows and trims sections
+    $('#secondaryWindowsList').empty();
+    uniqueCSVData['WinStyle_T'].forEach(el => {
+        $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'WinStyle_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#winTrimTop').empty();
+    uniqueCSVData['WinTrimTop_T'].forEach(el => {
+        $('#winTrimTop').append(`<option>${el}</option>`);
+    })
+    $('#winTrimSide').empty();
+    uniqueCSVData['WinTrimSide_T'].forEach(el => {
+        $('#winTrimSide').append(`<option>${el}</option>`);
+    })
+    $('#winTrimBottom').empty();
+    uniqueCSVData['WinTrimBottom_T'].forEach(el => {
+        $('#winTrimBottom').append(`<option>${el}</option>`);
+    })
+    $('#winTrimColor').empty();
+    uniqueCSVData['WinTrimColor_T'].forEach(el => {
+        $('#winTrimColor').append(`<option>${el}</option>`);
+    })
+    $('#winShutterColor').empty();
+    uniqueCSVData['WinShutterColor_T'].forEach(el => {
+        $('#winShutterColor').append(`<option>${el}</option>`);
+    })
+    $('#winShutter').empty();
+    uniqueCSVData['WinShutter_T'].forEach(el => {
+        $('#winShutter').append(`<option>${el}</option>`);
+    })
+    $('#winKey').empty();
+    uniqueCSVData['WinKey_T'].forEach(el => {
+        $('#winKey').append(`<option>${el}</option>`);
+    })
+    $('#winBay').empty();
+    uniqueCSVData['WinBay_T'].forEach(el => {
+        $('#winBay').append(`<option>${el}</option>`);
+    })
+    $('#doorsList').empty();
+    uniqueCSVData['DoorStyle_T'].forEach(el => {
+        $('#doorsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'DoorStyle_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#doorTrimTop').empty();
+    uniqueCSVData['DoorTrimTop_T'].forEach(el => {
+        $('#doorTrimTop').append(`<option>${el}</option>`);
+    })
+    $('#doorTrimSide').empty();
+    uniqueCSVData['DoorTrimSide_T'].forEach(el => {
+        $('#doorTrimSide').append(`<option>${el}</option>`);
+    })
+    $('#doorTrimColor').empty();
+    uniqueCSVData['DoorTrimColor_T'].forEach(el => {
+        $('#doorTrimColor').append(`<option>${el}</option>`);
+    })
+    $('#datumSplBaseProfile').empty();
+    uniqueCSVData['DatumSplBaseProfile_T'].forEach(el => {
+        $('#datumSplBaseProfile').append(`<option>${el}</option>`);
+    })
+
+
+    //Preparing the porch section
+    $('#porchList').empty();
+    uniqueCSVData['PorchStyle_T'].forEach(el => {
+        $('#porchList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'PorchStyle_T', '${el}')" />
+                                    </div >`);
+    })
+    $('#porchSpan').empty();
+    uniqueCSVData['PorchSpan_T'].forEach(el => {
+        $('#porchSpan').append(`<option>${el}</option>`);
+    })
+    $('#railTop').empty();
+    uniqueCSVData['RailTop_T'].forEach(el => {
+        $('#railTop').append(`<option>${el}</option>`);
+    })
+    $('#railBottom').empty();
+    uniqueCSVData['RailBottom_T'].forEach(el => {
+        $('#railBottom').append(`<option>${el}</option>`);
+    })
+    $('#railBal').empty();
+    uniqueCSVData['RailBal_T'].forEach(el => {
+        $('#railBal').append(`<option>${el}</option>`);
+    })
+
+
+
+
+
+
+
+
+
+
+    //$('#secondaryWindowsList').empty();
+    //for (var x = 1; x <= 9; x++) {
+    //    $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${x}">
+    //                <img class="img-responsive" src ="images/windows/${x}.png" alt ="${x}" />
+    //                                </div >`);
+    //}
 
     //console.log(uniqueCSVData);
 }
@@ -205,6 +359,11 @@ function logKey(e) {
     if (e.code == 'KeyX') {
 
     }
+}
+
+function populateExteriorMenu() {
+    //console.log(csvData);
+    //console.log(uniqueCSVData);
 }
 
 function ModifyCSV(element, key, value) {
@@ -215,8 +374,13 @@ function ModifyCSV(element, key, value) {
     $(element).addClass("activeStyle");
 }
 
+function updateCSV(element, key) {
+    csvData[currentSelectedStyle][key] = element.selectedOptions[0].value;
+}
+
 
 function TestOBjectsData(facadestyle) {
+    currentFacadeStyle = facadestyle;
     jQuery.ajax({
         url: '/api/forge/oss/buckets',
         method: 'GET',
@@ -224,6 +388,7 @@ function TestOBjectsData(facadestyle) {
             'id': `${facadestyle}bucket`,
         },
         success: function (result) {
+
 
             var i = 1;
             //$('#floorPlansList').empty();
@@ -326,6 +491,7 @@ function loadModel(modelName, modelID, type, element) {
         $("#forgeViewer").empty();
         var urn = modelID;
         getForgeToken(function (access_token) {
+            console.log(access_token);
             jQuery.ajax({
                 url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
                 headers: { 'Authorization': 'Bearer ' + access_token },
