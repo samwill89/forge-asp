@@ -266,11 +266,14 @@ namespace forgesample.Controllers
         [Route("api/forge/designautomation/startworkitem")]
         public async Task<IActionResult> StartWorkItem([FromForm]StartWorkitemInput input)
         {
+
             // basic input validation
             string activityName = string.Format("{0}.{1}", NickName, input.activityId);
             string browerConnectionId = input.browerConnectionId;
             string bucketKey = input.bucketId;
+            Console.WriteLine(bucketKey);
             string inputFileNameOSS = input.objectId;
+            Console.WriteLine(inputFileNameOSS);
 
             bool isCount = input.activityId.ToLower() == "countitactivity+dev";
 
@@ -301,7 +304,7 @@ namespace forgesample.Controllers
                 outputFileNameOSS = string.Format("{0}_{1}", DateTime.Now.ToString("yyyyMMddhhmmss"), Path.GetFileName(inputFileNameOSS)); // avoid overriding
             XrefTreeArgument outputFileArgument = new XrefTreeArgument()
             {
-                Url = string.Format("https://developer.api.autodesk.com/oss/v2/buckets/{0}/objects/{1}", bucketKey, outputFileNameOSS),
+                Url = string.Format("https://developer.api.autodesk.com/oss/v2/buckets/generatedmodelsbucket/objects/{0}", outputFileNameOSS),
                 Verb = Verb.Put,
                 Headers = new Dictionary<string, string>()
             {

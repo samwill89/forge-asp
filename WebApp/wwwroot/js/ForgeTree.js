@@ -664,3 +664,19 @@ function translateObject(node) {
         });
   });
 }
+
+function translateMyObject(bucketKey, objectKey) {
+    $("#forgeViewer").empty();
+    startConnection(function () {
+        //var bucketKey = node.parents[0];
+        //var objectKey = node.id;
+        jQuery.post({
+            url: '/api/forge/modelderivative/jobs',
+            contentType: 'application/json',
+            data: JSON.stringify({ 'bucketKey': bucketKey, 'objectName': objectKey, 'connectionId': connectionId }),
+            success: function (res) {
+                $("#forgeViewer").html('Translation started! Model will load when ready..');
+            }
+        });
+    });
+}
