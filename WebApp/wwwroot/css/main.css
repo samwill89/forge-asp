@@ -52,7 +52,7 @@ body {
     height: 100%;
 }*/
 
-#accordion1, #accordion3, #forgeViewer {
+#accordion1, #accordion3, #accordion4, #forgeViewer {
     display: none;
 }
 

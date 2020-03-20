@@ -32,14 +32,14 @@
         <div class="container-fluid">
             <ul class="nav navbar-nav left">
                 <li>
-                    <a href="#" target="_blank">
+                    <a href="#" onclick="location.reload();">
                         <img class="img-responsive" style="height: 24px;" alt="HQ" src="images/logo.png">
                     </a>
                 </li>
-                <li><a href="#">File</a></li>
-                <li><a href="#">Edit</a></li>
-                <li><a href="#">View</a></li>
-                <li><a href="#">Help</a></li>
+                <li><a href="#" onclick="ShowPlansMenu()">PLANS</a></li>
+                <li><a href="#" onclick="ShowExteriorMenu()">EXTERIOR</a></li>
+                <li><a href="#">INTERIOR</a></li>
+                <li><a href="#" onclick="ShowMyModelsMenu()">MY MODELS</a></li>
             </ul>
             <div style="float: right; margin-top: 15px; cursor: pointer;">
                 <span style="padding-right: 5px;" data-toggle="modal" data-target="#defineActivityModal" title="Configura AppBundle & Activity">
@@ -132,7 +132,7 @@
                         </div>
                         <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
                             <div id="archPanel3" class="panel-body">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -185,43 +185,43 @@
                         </div>
                     </div>
                     <!--<div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="heading10" data-toggle="collapse" data-parent="#accordion2" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
-                            <h4 class="panel-title">
-                                1 STORY - BY ARCHITECTURAL FORM
-                            </h4>
-                        </div>
-                        <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
-                            <div class="panel-body">
-                                <div class="row">
+            <div class="panel-heading" role="tab" id="heading10" data-toggle="collapse" data-parent="#accordion2" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                <h4 class="panel-title">
+                    1 STORY - BY ARCHITECTURAL FORM
+                </h4>
+            </div>
+            <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
+                <div class="panel-body">
+                    <div class="row">
 
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="heading11" data-toggle="collapse" data-parent="#accordion2" href="#collapse11" aria-expanded="false" aria-controls="collapse11">
-                            <h4 class="panel-title">
-                                3 STORIES - BY FLOOR PLANS
-                            </h4>
-                        </div>
-                        <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading11">
-                            <div class="panel-body">
-                                Content goes here.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="heading12" data-toggle="collapse" data-parent="#accordion2" href="#collapse12" aria-expanded="false" aria-controls="collapse12">
-                            <h4 class="panel-title">
-                                3 STORIES - BY ARCHITECTURAL FORM
-                            </h4>
-                        </div>
-                        <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
-                            <div class="panel-body">
-                                Content goes here.
-                            </div>
-                        </div>
-                    </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading11" data-toggle="collapse" data-parent="#accordion2" href="#collapse11" aria-expanded="false" aria-controls="collapse11">
+                <h4 class="panel-title">
+                    3 STORIES - BY FLOOR PLANS
+                </h4>
+            </div>
+            <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading11">
+                <div class="panel-body">
+                    Content goes here.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="heading12" data-toggle="collapse" data-parent="#accordion2" href="#collapse12" aria-expanded="false" aria-controls="collapse12">
+                <h4 class="panel-title">
+                    3 STORIES - BY ARCHITECTURAL FORM
+                </h4>
+            </div>
+            <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
+                <div class="panel-body">
+                    Content goes here.
+                </div>
+            </div>
+        </div>-->
                 </div>
 
                 <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true">
@@ -270,8 +270,8 @@
 
 
                                 <!--<div class="row text-center">
-                    <button class="btn btn-default selectBaseMaterial">SELECT</button>
-                </div>-->
+                        <button class="btn btn-default selectBaseMaterial">SELECT</button>
+                    </div>-->
                             </div>
                         </div>
                     </div>
@@ -397,8 +397,8 @@
                                 </div>
 
                                 <!--<div class="row text-center">
-                    <button class="btn btn-default selectBaseMaterial">SELECT</button>
-                </div>-->
+                        <button class="btn btn-default selectBaseMaterial">SELECT</button>
+                    </div>-->
 
                             </div>
                         </div>
@@ -451,17 +451,31 @@
                     </div>
 
                     <!--<div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="heading18" data-toggle="collapse" data-parent="#accordion3" href="#collapse18" aria-expanded="false" aria-controls="collapse18">
-            <h4 class="panel-title">
-                3 STORIES - BY ARCHITECTURAL FORM
-            </h4>
-        </div>
-        <div id="collapse18" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading18">
-            <div class="panel-body">
-                Content goes here.
+            <div class="panel-heading" role="tab" id="heading18" data-toggle="collapse" data-parent="#accordion3" href="#collapse18" aria-expanded="false" aria-controls="collapse18">
+                <h4 class="panel-title">
+                    3 STORIES - BY ARCHITECTURAL FORM
+                </h4>
             </div>
-        </div>
-    </div>-->
+            <div id="collapse18" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading18">
+                <div class="panel-body">
+                    Content goes here.
+                </div>
+            </div>
+        </div>-->
+                </div>
+
+                <div class="panel-group" id="accordion4" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="mymodelsheading" data-toggle="collapse" data-parent="#accordion4" href="#mymodelscollapse" aria-expanded="true" aria-controls="mymodelscollapse">
+                            <h4 class="panel-title">
+                                MY MODELS
+                            </h4>
+                        </div>
+                        <div id="mymodelscollapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="mymodelsheading">
+                            <div id="mymodels" class="panel-body">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 

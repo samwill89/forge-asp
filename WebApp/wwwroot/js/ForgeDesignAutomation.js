@@ -370,9 +370,10 @@ function startConnection(onReady) {
                                 // we can load it here ba2a
                             },
                             error: function (err) {
-                                var msgButton = `This file is not translated yet! ' +
-                                    '<button class="btn btn-xs btn-info" onclick="translateMyObject("generatedmodelsbucket", ${newModel.id})"><span class="glyphicon glyphicon-eye-open"></span> ' +
-                                    'Start translation</button>`
+                                console.log(err);
+                                var msgButton = `This file is not translated yet!
+                                    <button class="btn btn-xs btn-info" onClick="translateMyObject('generatedmodelsbucket', '${newModel.id}')"><span class="glyphicon glyphicon-eye-open"></span>
+                                    Start translation</button>`
                                 $("#forgeViewer").html(msgButton);
                             }
                         });

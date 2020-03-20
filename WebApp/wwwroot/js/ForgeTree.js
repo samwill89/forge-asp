@@ -205,7 +205,7 @@ function PrepareUniqueValues() {
     $('#mainMaterialsList').empty();
     uniqueCSVData['MainMaterial_T'].forEach(el => {
         $('#mainMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'MainMaterial_T', '${el}')" />
+                    <img class="img-responsive main-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'MainMaterial_T', '${el}')" />
                                     </div >`);
     })
     $('#mainMaterialsColors').empty();
@@ -216,7 +216,7 @@ function PrepareUniqueValues() {
     $('#accentMaterialsList').empty();
     uniqueCSVData['AccentMaterial_T'].forEach(el => {
         $('#accentMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'AccentMaterial_T', '${el}')" />
+                    <img class="img-responsive accent-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'AccentMaterial_T', '${el}')" />
                                     </div >`);
     })
     $('#accentMaterialsColors').empty();
@@ -230,7 +230,7 @@ function PrepareUniqueValues() {
     $('#colCapitalList').empty();
     uniqueCSVData['ColumnCapitalStyle_T'].forEach(el => {
         $('#colCapitalList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'ColumnCapitalStyle_T', '${el}')" />
+                    <img class="img-responsive colCapital" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'ColumnCapitalStyle_T', '${el}')" />
                                     </div >`);
     })
     $('#columnColor').empty();
@@ -241,7 +241,7 @@ function PrepareUniqueValues() {
     $('#colBaseList').empty();
     uniqueCSVData['ColumnBaseStyle_T'].forEach(el => {
         $('#colBaseList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'ColumnBaseStyle_T', '${el}')" />
+                    <img class="img-responsive colBase" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'ColumnBaseStyle_T', '${el}')" />
                                     </div >`);
     })
     $('#columnPlinthHeight').empty();
@@ -254,7 +254,7 @@ function PrepareUniqueValues() {
     $('#secondaryWindowsList').empty();
     uniqueCSVData['WinStyle_T'].forEach(el => {
         $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'WinStyle_T', '${el}')" />
+                    <img class="img-responsive secondarywindows" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'WinStyle_T', '${el}')" />
                                     </div >`);
     })
     $('#winTrimTop').empty();
@@ -292,7 +292,7 @@ function PrepareUniqueValues() {
     $('#doorsList').empty();
     uniqueCSVData['DoorStyle_T'].forEach(el => {
         $('#doorsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'DoorStyle_T', '${el}')" />
+                    <img class="img-responsive doorStyle" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'DoorStyle_T', '${el}')" />
                                     </div >`);
     })
     $('#doorTrimTop').empty();
@@ -317,7 +317,7 @@ function PrepareUniqueValues() {
     $('#porchList').empty();
     uniqueCSVData['PorchStyle_T'].forEach(el => {
         $('#porchList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'PorchStyle_T', '${el}')" />
+                    <img class="img-responsive porchStyle" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'PorchStyle_T', '${el}')" />
                                     </div >`);
     })
     $('#porchSpan').empty();
@@ -367,8 +367,10 @@ function populateExteriorMenu() {
 }
 
 function ModifyCSV(element, key, value) {
+    console.log(element);
+    className = element.classList[1];
     csvData[currentSelectedStyle][key] = value;
-    $(".base-materials").each(function () {
+    $(`.${className}`).each(function () {
         $(this).removeClass("activeStyle");
     });
     $(element).addClass("activeStyle");
@@ -676,7 +678,58 @@ function translateMyObject(bucketKey, objectKey) {
             data: JSON.stringify({ 'bucketKey': bucketKey, 'objectName': objectKey, 'connectionId': connectionId }),
             success: function (res) {
                 $("#forgeViewer").html('Translation started! Model will load when ready..');
+            },
+            error: function (err) {
+                console.log(err);
             }
         });
+    });
+}
+
+
+function ShowPlansMenu() {
+    $("#accordion2").hide();
+    $("#accordion3").hide();
+    $("#accordion4").hide();
+    $("#accordion1").show();
+}
+
+function ShowExteriorMenu() {
+    $("#accordion1").hide();
+    $("#accordion2").hide();
+    $("#accordion4").hide();
+    $("#accordion3").show();
+}
+
+function ShowMyModelsMenu() {
+    $("#accordion1").hide();
+    $("#accordion2").hide();
+    $("#accordion3").hide();
+    $("#accordion4").show();
+    getMyModels();
+}
+
+function getMyModels() {
+    jQuery.ajax({
+        url: '/api/forge/oss/buckets',
+        method: 'GET',
+        data: {
+            'id': 'generatedmodelsbucket',
+        },
+        success: function (result) {
+            var i = 1;
+            result.forEach(function (item) {
+                //var modelName = item.text.split('.')[0].split('_')[0];
+                //var storiesNumber = item.text.split('.')[0].split('_')[1];
+                //var bedCount = item.text.split('.')[0].split('_')[2];
+                //var area = item.text.split('.')[0].split('_')[3];
+
+                $('#mymodels').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.text}','${item.id}', 'arch', this)" data-toggle="tooltip" data-placement="right" title="${item.text}">
+                    <img class="img-responsive arch-form-style" src ="http://placehold.jp/100x100.png?text=${item.text}" alt ="${item.text}" />
+                                    </div >`);
+
+            });
+
+        }
     });
 }
