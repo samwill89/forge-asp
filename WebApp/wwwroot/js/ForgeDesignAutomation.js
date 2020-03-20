@@ -235,7 +235,8 @@ function startWorkitem() {
                     writeLog('Workitem started: ' + res.workItemId);
                     $("#mainViewImg").hide();
                     $("#forgeViewer").show();
-                    $("#forgeViewer").html('Workitem started..');
+                    $("#forgeViewer").html(`Workitem started  <img class="spinner" src="images/spinner.gif">`);
+                    //$("#forgeViewer").html(`<span class="loader"></span>`);
                 }
             });
         });
@@ -267,8 +268,6 @@ function startConnection(onReady) {
         });
 
     connection.on("downloadResult", function (url) {
-        //console.log("Should be here!");
-        //writeLog('<a href="' + url + '">Download result file here</a>');
         //jQuery.ajax({
         //    url: '/api/forge/oss/buckets',
         //    method: 'GET',
@@ -284,7 +283,6 @@ function startConnection(onReady) {
         //                newModel = item;
         //            }
         //        });
-        //        // request that model to be viewed in the forge viewer
 
         //        $("#forgeViewer").empty();
         //        console.log(currentFacadeStyle);
@@ -301,29 +299,16 @@ function startConnection(onReady) {
         //                    $("#forgeViewer").show();
         //                    $("#forgeViewer").html('Translation started! Model will load when ready..');
         //                    // we can load it here ba2a
+        //                },
+        //                error: function (err) {
+        //                    console.log(err);
+        //                    var msgButton = `This file is not translated yet!
+        //                            <button class="btn btn-xs btn-info" onClick="translateMyObject('generatedmodelsbucket', '${newModel.id}')"><span class="glyphicon glyphicon-eye-open"></span>
+        //                            Start translation</button>`
+        //                    $("#forgeViewer").html(msgButton);
         //                }
         //            });
         //        });
-
-
-        //        //getForgeToken(function (access_token) {
-        //        //    console.log(access_token);
-        //        //    jQuery.ajax({
-        //        //        url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
-        //        //        headers: { 'Authorization': 'Bearer ' + access_token },
-        //        //        success: function (res) {
-        //        //            if (res.status === 'success') launchViewer(urn);
-        //        //            else $("#forgeViewer").html('The translation job still running: ' + res.progress + '. Please try again in a moment.');
-        //        //        },
-        //        //        error: function (err) {
-        //        //            var msgButton = 'This file is not translated yet! ' +
-        //        //                '<button class="btn btn-xs btn-info" onclick="translateObject()"><span class="glyphicon glyphicon-eye-open"></span> ' +
-        //        //                'Start translation</button>'
-        //        //            $("#forgeViewer").html(msgButton);
-        //        //        }
-        //        //    });
-        //        //})
-
 
         //    }
         //});
@@ -336,7 +321,6 @@ function startConnection(onReady) {
     connection.on("onComplete", function (message) {
         try {
             var j = JSON.parse(message);
-            console.log(j.status);
             jQuery.ajax({
                 url: '/api/forge/oss/buckets',
                 method: 'GET',
@@ -358,7 +342,7 @@ function startConnection(onReady) {
                     console.log(biggestTime);
                     console.log(newModel);
                     var urn = newModel.id;
-                    startConnection(function () {
+
                         jQuery.post({
                             url: '/api/forge/modelderivative/jobs',
                             contentType: 'application/json',
@@ -366,7 +350,7 @@ function startConnection(onReady) {
                             success: function (res) {
                                 $("#mainViewImg").hide();
                                 $("#forgeViewer").show();
-                                $("#forgeViewer").html('Translation started! Model will load when ready..');
+                                $("#forgeViewer").html('Translation started! Model will load when ready  <img class="spinner" src="images/spinner.gif"> ');
                                 // we can load it here ba2a
                             },
                             error: function (err) {
@@ -377,12 +361,12 @@ function startConnection(onReady) {
                                 $("#forgeViewer").html(msgButton);
                             }
                         });
-                    });
+
 
                 }
             });
         } catch (e) {
-            //alert(e);
+            
         }
         
         //console.log(typeof (message));
@@ -395,6 +379,7 @@ function startConnection(onReady) {
         //instance.refresh_node(parentNode);
     });
     connection.on("extractionFinished", function (data) {
+        $("#forgeViewer").empty();
         launchViewer(data.resourceUrn);
     });
 

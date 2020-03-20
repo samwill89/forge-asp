@@ -502,9 +502,9 @@ function loadModel(modelName, modelID, type, element) {
                     else $("#forgeViewer").html('The translation job still running: ' + res.progress + '. Please try again in a moment.');
                 },
                 error: function (err) {
-                    var msgButton = 'This file is not translated yet! ' +
-                        '<button class="btn btn-xs btn-info" onclick="translateObject()"><span class="glyphicon glyphicon-eye-open"></span> ' +
-                        'Start translation</button>'
+                    var msgButton = `This file is not translated yet!
+                                    <button class="btn btn-xs btn-info" onClick="translateMyObject('generatedmodelsbucket', '${modelID}')"><span class="glyphicon glyphicon-eye-open"></span>
+                                    Start translation</button>`
                     $("#forgeViewer").html(msgButton);
                 }
             });
@@ -661,23 +661,28 @@ function translateObject(node) {
             contentType: 'application/json',
             data: JSON.stringify({ 'bucketKey': bucketKey, 'objectName': objectKey, 'connectionId': connectionId }),
             success: function (res) {
-                $("#forgeViewer").html('Translation started! Model will load when ready..');
+                $("#forgeViewer").html('Translation started! Model will load when ready  <img class="spinner" src="images/spinner.gif"> ');
+                
             }
         });
   });
 }
 
 function translateMyObject(bucketKey, objectKey) {
+
     $("#forgeViewer").empty();
     startConnection(function () {
-        //var bucketKey = node.parents[0];
-        //var objectKey = node.id;
+        console.log(bucketKey);
+        console.log(objectKey);
+        console.log(connectionId);
         jQuery.post({
             url: '/api/forge/modelderivative/jobs',
             contentType: 'application/json',
             data: JSON.stringify({ 'bucketKey': bucketKey, 'objectName': objectKey, 'connectionId': connectionId }),
             success: function (res) {
-                $("#forgeViewer").html('Translation started! Model will load when ready..');
+                $("#forgeViewer").html('Translation started! Model will load when ready  <img class="spinner" src="images/spinner.gif"> ');
+                //$("#forgeViewer").html('<span class="loader"></span>');
+                //console.log(res.progress);
             },
             error: function (err) {
                 console.log(err);
