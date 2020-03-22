@@ -207,12 +207,6 @@ function PrepareUniqueValues() {
     ];
 
 
-    //var colorsInAray = [
-    //    [],
-    //    [],
-    //    [],
-    //    []
-    //]
 
 
     //Preparing the walls & materials section
@@ -227,11 +221,6 @@ function PrepareUniqueValues() {
             }
         })
     })
-    //$('#baseMaterialsColors').empty();
-    //uniqueCSVData['BaseMaterialColor_T'].forEach(el => {
-    //    $('#baseMaterialsColors').append(`<option>${el}</option>`);
-    //})
-
 
     $('#mainMaterialsList').empty();
     uniqueCSVData['MainMaterial_T'].forEach(el => {
@@ -244,10 +233,7 @@ function PrepareUniqueValues() {
             }
         })
     })
-    //$('#mainMaterialsColors').empty();
-    //uniqueCSVData['MainMaterialColor_T'].forEach(el => {
-    //    $('#mainMaterialsColors').append(`<option>${el}</option>`);
-    //})
+
 
     $('#accentMaterialsList').empty();
     uniqueCSVData['AccentMaterial_T'].forEach(el => {
@@ -260,141 +246,159 @@ function PrepareUniqueValues() {
             }
         })
     })
-    //$('#accentMaterialsColors').empty();
-    //uniqueCSVData['AccentMaterialColor_T'].forEach(el => {
-    //    $('#accentMaterialsColors').append(`<option>${el}</option>`);
-    //})
 
+    $('#datumsplbase').empty();
+    uniqueCSVData['DatumSplBaseProfile_T'].forEach(el => {
+        $('#datumsplbase').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive datumsplbase" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'DatumSplBaseProfile_T', '${el}')" />
+                                    </div >`);
+    })
 
 
     //Preparing the Columns section
+    $('#colColor').empty();
+    Object.keys(colorsInAray).forEach(colAr => {
+        colorsInAray[colAr].forEach(col => {
+            $('#colColor').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${col}">
+                <img class="img-responsive colColor" src ="http://placehold.jp/100x100.png?text=${col}" alt ="${col}" onClick="ModifyCSV(this, 'ColumnColor_T', '${colAr}')" />
+                                </div >`);
+        })
+    })   
+
     $('#colCapitalList').empty();
     uniqueCSVData['ColumnCapitalStyle_T'].forEach(el => {
         $('#colCapitalList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
                     <img class="img-responsive colCapital" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'ColumnCapitalStyle_T', '${el}')" />
                                     </div >`);
     })
-    $('#columnColor').empty();
-    uniqueCSVData['ColumnColor_T'].forEach(el => {
-        $('#columnColor').append(`<option>${el}</option>`);
-    })
 
     $('#colBaseList').empty();
     uniqueCSVData['ColumnBaseStyle_T'].forEach(el => {
         $('#colBaseList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive colBase" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'ColumnBaseStyle_T', '${el}')" />
+                    <img class="img-responsive colbase" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'ColumnBaseStyle_T', '${el}')" />
                                     </div >`);
-    })
-    $('#columnPlinthHeight').empty();
-    uniqueCSVData['ColumnPlinthHeight_T'].forEach(el => {
-        $('#columnPlinthHeight').append(`<option>${el}</option>`);
     })
 
 
     //Preparing the windows and trims sections
-    $('#secondaryWindowsList').empty();
+    $('#winStylesList').empty();
     uniqueCSVData['WinStyle_T'].forEach(el => {
-        $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive secondarywindows" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'WinStyle_T', '${el}')" />
+        $('#winStylesList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive winstyle" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'WinStyle_T', '${el}')" />
                                     </div >`);
     })
+
     $('#winTrimTop').empty();
     uniqueCSVData['WinTrimTop_T'].forEach(el => {
-        $('#winTrimTop').append(`<option>${el}</option>`);
+        $('#winTrimTop').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive wintrimtop" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'WinTrimTop_T', '${el}')" />
+                                    </div >`);
     })
+
     $('#winTrimSide').empty();
     uniqueCSVData['WinTrimSide_T'].forEach(el => {
-        $('#winTrimSide').append(`<option>${el}</option>`);
+        $('#winTrimSide').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive wintrimside" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'WinTrimSide_T', '${el}')" />
+                                    </div >`);
     })
+
     $('#winTrimBottom').empty();
     uniqueCSVData['WinTrimBottom_T'].forEach(el => {
-        $('#winTrimBottom').append(`<option>${el}</option>`);
+        $('#winTrimBottom').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive wintrimbottom" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'WinTrimBottom_T', '${el}')" />
+                                    </div >`);
     })
+
     $('#winTrimColor').empty();
-    uniqueCSVData['WinTrimColor_T'].forEach(el => {
-        $('#winTrimColor').append(`<option>${el}</option>`);
-    })
+    Object.keys(colorsInAray).forEach(colAr => {
+        colorsInAray[colAr].forEach(col => {
+            $('#winTrimColor').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${col}">
+                <img class="img-responsive wintrimcolor" src ="http://placehold.jp/100x100.png?text=${col}" alt ="${col}" onClick="ModifyCSV(this, 'WinTrimColor_T', '${colAr}')" />
+                                </div >`);
+        })
+    })  
+
     $('#winShutterColor').empty();
-    uniqueCSVData['WinShutterColor_T'].forEach(el => {
-        $('#winShutterColor').append(`<option>${el}</option>`);
-    })
-    $('#winShutter').empty();
-    uniqueCSVData['WinShutter_T'].forEach(el => {
-        $('#winShutter').append(`<option>${el}</option>`);
-    })
-    $('#winKey').empty();
-    uniqueCSVData['WinKey_T'].forEach(el => {
-        $('#winKey').append(`<option>${el}</option>`);
-    })
-    $('#winBay').empty();
-    uniqueCSVData['WinBay_T'].forEach(el => {
-        $('#winBay').append(`<option>${el}</option>`);
-    })
-    $('#doorsList').empty();
+    Object.keys(colorsInAray).forEach(colAr => {
+        colorsInAray[colAr].forEach(col => {
+            $('#winShutterColor').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${col}">
+                <img class="img-responsive winshuttercolor" src ="http://placehold.jp/100x100.png?text=${col}" alt ="${col}" onClick="ModifyCSV(this, 'WinShutterColor_T', '${colAr}')" />
+                                </div >`);
+        })
+    }) 
+
+    $('#doorsStylesList').empty();
     uniqueCSVData['DoorStyle_T'].forEach(el => {
-        $('#doorsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+        $('#doorsStylesList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
                     <img class="img-responsive doorStyle" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'DoorStyle_T', '${el}')" />
                                     </div >`);
     })
-    $('#doorTrimTop').empty();
+
+    $('#doorsTrimTop').empty();
     uniqueCSVData['DoorTrimTop_T'].forEach(el => {
-        $('#doorTrimTop').append(`<option>${el}</option>`);
+        $('#doorsTrimTop').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive doortrimtop" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'DoorTrimTop_T', '${el}')" />
+                                    </div >`);
     })
-    $('#doorTrimSide').empty();
+
+    $('#doorsTrimSide').empty();
     uniqueCSVData['DoorTrimSide_T'].forEach(el => {
-        $('#doorTrimSide').append(`<option>${el}</option>`);
+        $('#doorsTrimSide').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive doortrimside" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'DoorTrimSide_T', '${el}')" />
+                                    </div >`);
     })
-    $('#doorTrimColor').empty();
-    uniqueCSVData['DoorTrimColor_T'].forEach(el => {
-        $('#doorTrimColor').append(`<option>${el}</option>`);
-    })
-    $('#datumSplBaseProfile').empty();
-    uniqueCSVData['DatumSplBaseProfile_T'].forEach(el => {
-        $('#datumSplBaseProfile').append(`<option>${el}</option>`);
-    })
+
+    $('#doorsTrimColor').empty();
+    Object.keys(colorsInAray).forEach(colAr => {
+        colorsInAray[colAr].forEach(col => {
+            $('#doorsTrimColor').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${col}">
+                <img class="img-responsive doortrimcolor" src ="http://placehold.jp/100x100.png?text=${col}" alt ="${col}" onClick="ModifyCSV(this, 'DoorTrimColor_T', '${colAr}')" />
+                                </div >`);
+        })
+    }) 
+
 
 
     //Preparing the porch section
-    $('#porchList').empty();
+    $('#porchStyleList').empty();
     uniqueCSVData['PorchStyle_T'].forEach(el => {
-        $('#porchList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+        $('#porchStyleList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
                     <img class="img-responsive porchStyle" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'PorchStyle_T', '${el}')" />
                                     </div >`);
     })
+
     $('#porchSpan').empty();
     uniqueCSVData['PorchSpan_T'].forEach(el => {
-        $('#porchSpan').append(`<option>${el}</option>`);
+        $('#porchSpan').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive porchSpan" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'PorchSpan_T', '${el}')" />
+                                    </div >`);
     })
-    $('#railTop').empty();
+
+    $('#porchRailTop').empty();
     uniqueCSVData['RailTop_T'].forEach(el => {
-        $('#railTop').append(`<option>${el}</option>`);
+        $('#porchRailTop').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive porchRailTop" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'RailTop_T', '${el}')" />
+                                    </div >`);
     })
-    $('#railBottom').empty();
+
+    $('#porchRailBottom').empty();
     uniqueCSVData['RailBottom_T'].forEach(el => {
-        $('#railBottom').append(`<option>${el}</option>`);
+        $('#porchRailBottom').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive porchRailBottom" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'RailBottom_T', '${el}')" />
+                                    </div >`);
     })
-    $('#railBal').empty();
+
+    $('#porchRailBal').empty();
     uniqueCSVData['RailBal_T'].forEach(el => {
-        $('#railBal').append(`<option>${el}</option>`);
+        $('#porchRailBal').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
+                    <img class="img-responsive porchRailBal" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'RailBal_T', '${el}')" />
+                                    </div >`);
     })
 
 
 
 
 
-
-
-
-
-
-    //$('#secondaryWindowsList').empty();
-    //for (var x = 1; x <= 9; x++) {
-    //    $('#secondaryWindowsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${x}">
-    //                <img class="img-responsive" src ="images/windows/${x}.png" alt ="${x}" />
-    //                                </div >`);
-    //}
-
-    //console.log(uniqueCSVData);
 }
 function logKey(e) {
     if (e.code == 'KeyX') {
@@ -441,6 +445,29 @@ function ModifyCSVForWallType(element, key1, key2, value1, value2) {
 
 function updateCSV(element, key) {
     csvData[currentSelectedStyle][key] = element.selectedOptions[0].value;
+}
+function updateCSVWithSlider(element, key, textId) {
+    $(textId)[0].innerText = element.value;
+    csvData[currentSelectedStyle][key] = element.value;
+}
+
+function updateCSVWithCheckBox(element, key) {
+    if (key === 'WinBay_T') {
+        if (element.checked) {
+            csvData[currentSelectedStyle][key] = "TRUE";
+        }
+        else {
+            csvData[currentSelectedStyle][key] = "FALSE";
+        }
+    } else {
+        if (element.checked) {
+            csvData[currentSelectedStyle][key] = "Yes";
+        }
+        else {
+            csvData[currentSelectedStyle][key] = "No";
+        }
+    }
+    
 }
 
 
