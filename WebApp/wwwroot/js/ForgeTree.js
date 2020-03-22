@@ -189,40 +189,81 @@ function PrepareUniqueValues() {
     })
 
 
+    var wallTypes = [
+        'Stone Yellow',
+        'Stone Orange',
+        'Siding White',
+        'Siding Eggshell',
+        'Siding Red',
+        'Siding Medium Blue',
+        'Siding Dark Green',
+        'Siding Dark Blue',
+        'Siding Brown',
+        'Siding Black',
+        'Brick Red',
+        'Brick Brown',
+        'BoardBatten White',
+        'BoardBatten Eggshell'
+    ];
+
+
+    //var colorsInAray = [
+    //    [],
+    //    [],
+    //    [],
+    //    []
+    //]
+
+
     //Preparing the walls & materials section
     $('#baseMaterialsList').empty();
     uniqueCSVData['BaseMaterial_T'].forEach(el => {
-        $('#baseMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive base-materials" src ="images/walls_materials/${el}.png" alt ="${el}" onClick="ModifyCSV(this, 'BaseMaterial_T', '${el}')" />
+        wallTypes.forEach(type => {
+            if (type.startsWith(el)) {
+                col = type.slice(el.length + 1);
+                $('#baseMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el} ${col}">
+                    <img class="img-responsive base-materials" src ="http://placehold.jp/100x100.png?text=${el}+${col}" alt ="${el} ${col}" onClick="ModifyCSVForWallType(this, 'BaseMaterial_T', 'BaseMaterialColor_T', '${el}', '${col}')" />
                                     </div >`);
+            }
+        })
     })
-    $('#baseMaterialsColors').empty();
-    uniqueCSVData['BaseMaterialColor_T'].forEach(el => {
-        $('#baseMaterialsColors').append(`<option>${el}</option>`);
-    })
+    //$('#baseMaterialsColors').empty();
+    //uniqueCSVData['BaseMaterialColor_T'].forEach(el => {
+    //    $('#baseMaterialsColors').append(`<option>${el}</option>`);
+    //})
 
 
     $('#mainMaterialsList').empty();
     uniqueCSVData['MainMaterial_T'].forEach(el => {
-        $('#mainMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive main-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'MainMaterial_T', '${el}')" />
+        wallTypes.forEach(type => {
+            if (type.startsWith(el)) {
+                col = type.slice(el.length + 1);
+                $('#mainMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el} ${col}">
+                    <img class="img-responsive main-materials" src ="http://placehold.jp/100x100.png?text=${el}+${col}" alt ="${el} ${col}" onClick="ModifyCSVForWallType(this, 'MainMaterial_T', 'MainMaterialColor_T', '${el}', '${col}')" />
                                     </div >`);
+            }
+        })
     })
-    $('#mainMaterialsColors').empty();
-    uniqueCSVData['MainMaterialColor_T'].forEach(el => {
-        $('#mainMaterialsColors').append(`<option>${el}</option>`);
-    })
+    //$('#mainMaterialsColors').empty();
+    //uniqueCSVData['MainMaterialColor_T'].forEach(el => {
+    //    $('#mainMaterialsColors').append(`<option>${el}</option>`);
+    //})
 
     $('#accentMaterialsList').empty();
     uniqueCSVData['AccentMaterial_T'].forEach(el => {
-        $('#accentMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
-                    <img class="img-responsive accent-materials" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'AccentMaterial_T', '${el}')" />
+        wallTypes.forEach(type => {
+            if (type.startsWith(el)) {
+                col = type.slice(el.length + 1);
+                $('#accentMaterialsList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el} ${col}">
+                    <img class="img-responsive accent-materials" src ="http://placehold.jp/100x100.png?text=${el}+${col}" alt ="${el} ${col}" onClick="ModifyCSVForWallType(this, 'AccentMaterial_T', 'AccentMaterialColor_T', '${el}', '${col}')" />
                                     </div >`);
+            }
+        })
     })
-    $('#accentMaterialsColors').empty();
-    uniqueCSVData['AccentMaterialColor_T'].forEach(el => {
-        $('#accentMaterialsColors').append(`<option>${el}</option>`);
-    })
+    //$('#accentMaterialsColors').empty();
+    //uniqueCSVData['AccentMaterialColor_T'].forEach(el => {
+    //    $('#accentMaterialsColors').append(`<option>${el}</option>`);
+    //})
 
 
 
@@ -365,11 +406,33 @@ function populateExteriorMenu() {
     //console.log(csvData);
     //console.log(uniqueCSVData);
 }
-
+//var colors = ['Boreal', 'White', 'Dark', 'Earth', 'Desert'];
+var colorsInAray = {
+    "Boreal": ['Dark Green', 'Medium Blue'],
+    "White": ['White', 'Eggshell'],
+    "Dark": ['Black', 'Dark Blue'],
+    "Earth": ['Red', 'Brown'],
+    "Desert": ['Yellow', 'Orange']
+};
 function ModifyCSV(element, key, value) {
     console.log(element);
     className = element.classList[1];
     csvData[currentSelectedStyle][key] = value;
+    $(`.${className}`).each(function () {
+        $(this).removeClass("activeStyle");
+    });
+    $(element).addClass("activeStyle");
+}
+
+function ModifyCSVForWallType(element, key1, key2, value1, value2) {
+    console.log(element);
+    className = element.classList[1];
+    csvData[currentSelectedStyle][key1] = value1;
+    Object.keys(colorsInAray).forEach(e => {
+        if (colorsInAray[e].includes(value2)) {
+            csvData[currentSelectedStyle][key2] = e;
+        }
+    })  
     $(`.${className}`).each(function () {
         $(this).removeClass("activeStyle");
     });
