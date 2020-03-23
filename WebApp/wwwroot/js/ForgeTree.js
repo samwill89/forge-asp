@@ -751,7 +751,7 @@ function translateObject(node) {
             contentType: 'application/json',
             data: JSON.stringify({ 'bucketKey': bucketKey, 'objectName': objectKey, 'connectionId': connectionId }),
             success: function (res) {
-                $("#forgeViewer").html('Translation started! Model will load when ready  <img class="spinner" src="images/spinner.gif"> ');
+                $("#forgeViewer").html('Translation started! Model will load when ready  <img class="spinner" src="../images/spinner.gif"> ');
                 
             }
         });
@@ -770,7 +770,7 @@ function translateMyObject(bucketKey, objectKey) {
             contentType: 'application/json',
             data: JSON.stringify({ 'bucketKey': bucketKey, 'objectName': objectKey, 'connectionId': connectionId }),
             success: function (res) {
-                $("#forgeViewer").html('Translation started! Model will load when ready  <img class="spinner" src="images/spinner.gif"> ');
+                $("#forgeViewer").html('Translation started! Model will load when ready  <img class="spinner" src="../images/spinner.gif"> ');
                 //$("#forgeViewer").html('<span class="loader"></span>');
                 //console.log(res.progress);
             },

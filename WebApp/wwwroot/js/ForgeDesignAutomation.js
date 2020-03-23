@@ -235,7 +235,7 @@ function startWorkitem() {
                     writeLog('Workitem started: ' + res.workItemId);
                     $("#mainViewImg").hide();
                     $("#forgeViewer").show();
-                    $("#forgeViewer").html(`Workitem started  <img class="spinner" src="images/spinner.gif">`);
+                    $("#forgeViewer").html(`Workitem started  <img class="spinner" src="../images/spinner.gif">`);
                     //$("#forgeViewer").html(`<span class="loader"></span>`);
                 }
             });
@@ -350,7 +350,7 @@ function startConnection(onReady) {
                             success: function (res) {
                                 $("#mainViewImg").hide();
                                 $("#forgeViewer").show();
-                                $("#forgeViewer").html('Translation started! Model will load when ready  <img class="spinner" src="images/spinner.gif"> ');
+                                $("#forgeViewer").html('Translation started! Model will load when ready  <img class="spinner" src="../images/spinner.gif"> ');
                                 // we can load it here ba2a
                             },
                             error: function (err) {
