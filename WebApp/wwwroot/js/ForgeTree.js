@@ -206,7 +206,20 @@ function PrepareUniqueValues() {
         'BoardBatten Eggshell'
     ];
 
+    var rails = [
+        'Regal',
+        'Medium1',
+        'Medium2',
+        'Royal'
+    ];
 
+    var winStyle = [
+        'SH1x - Regal',
+        'SH2x - Regal',
+        'SH1x - Royal',
+        'SH2x - Royal',
+        'Fixed1x - Medium'
+    ];
 
 
     //Preparing the walls & materials section
@@ -282,7 +295,7 @@ function PrepareUniqueValues() {
 
     //Preparing the windows and trims sections
     $('#winStylesList').empty();
-    uniqueCSVData['WinStyle_T'].forEach(el => {
+    winStyle.forEach(el => {
         $('#winStylesList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
                     <img class="img-responsive winstyle" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'WinStyle_T', '${el}')" />
                                     </div >`);
@@ -375,21 +388,21 @@ function PrepareUniqueValues() {
     })
 
     $('#porchRailTop').empty();
-    uniqueCSVData['RailTop_T'].forEach(el => {
+    rails.forEach(el => {
         $('#porchRailTop').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
                     <img class="img-responsive porchRailTop" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'RailTop_T', '${el}')" />
                                     </div >`);
     })
 
     $('#porchRailBottom').empty();
-    uniqueCSVData['RailBottom_T'].forEach(el => {
+    rails.forEach(el => {
         $('#porchRailBottom').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
                     <img class="img-responsive porchRailBottom" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'RailBottom_T', '${el}')" />
                                     </div >`);
     })
 
     $('#porchRailBal').empty();
-    uniqueCSVData['RailBal_T'].forEach(el => {
+    rails.forEach(el => {
         $('#porchRailBal').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${el}">
                     <img class="img-responsive porchRailBal" src ="http://placehold.jp/100x100.png?text=${el}" alt ="${el}" onClick="ModifyCSV(this, 'RailBal_T', '${el}')" />
                                     </div >`);
@@ -751,7 +764,7 @@ function translateObject(node) {
             contentType: 'application/json',
             data: JSON.stringify({ 'bucketKey': bucketKey, 'objectName': objectKey, 'connectionId': connectionId }),
             success: function (res) {
-                $("#forgeViewer").html('Translation started! Model will load when ready  <img class="spinner" src="../images/spinner.gif"> ');
+                $("#forgeViewer").html('Translation started! Model will load when ready  <div class="loader"></div> ');
                 
             }
         });
@@ -770,7 +783,7 @@ function translateMyObject(bucketKey, objectKey) {
             contentType: 'application/json',
             data: JSON.stringify({ 'bucketKey': bucketKey, 'objectName': objectKey, 'connectionId': connectionId }),
             success: function (res) {
-                $("#forgeViewer").html('Translation started! Model will load when ready  <img class="spinner" src="../images/spinner.gif"> ');
+                $("#forgeViewer").html('Translation started! Model will load when ready  <div class="loader"></div> ');
                 //$("#forgeViewer").html('<span class="loader"></span>');
                 //console.log(res.progress);
             },
