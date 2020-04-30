@@ -4,6 +4,7 @@
 <head>
     <title>Autodesk Forge - Design Automation</title>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="https://github.com/Autodesk-Forge/learn.forge.viewhubmodels/raw/master/img/favicon.ico">
     <!-- Common packages: jQuery, Bootstrap, jsTree -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -32,14 +33,14 @@
         <div class="container-fluid">
             <ul class="nav navbar-nav left">
                 <li>
-                    <a href="#" target="_blank">
+                    <a href="#" onclick="location.reload();">
                         <img class="img-responsive" style="height: 24px;" alt="HQ" src="images/logo.png">
                     </a>
                 </li>
-                <li><a href="#">File</a></li>
-                <li><a href="#">Edit</a></li>
-                <li><a href="#">View</a></li>
-                <li><a href="#">Help</a></li>
+                <li><a href="#" onclick="ShowPlansMenu()">PLANS</a></li>
+                <li><a href="#" onclick="ShowExteriorMenu()">EXTERIOR</a></li>
+                <li><a href="#">INTERIOR</a></li>
+                <li><a href="#" onclick="ShowMyModelsMenu()">MY MODELS</a></li>
             </ul>
             <div style="float: right; margin-top: 15px; cursor: pointer;">
                 <span style="padding-right: 5px;" data-toggle="modal" data-target="#defineActivityModal" title="Configura AppBundle & Activity">
@@ -48,17 +49,17 @@
             </div>
         </div>
     </nav>
+    
     <!-- End of navbar -->
     <div class="container-fluid" style="margin-top: 70px;">
+        <!--<img class="spinner" src="images/spinner.gif">-->
         <div class="row">
             <!-- ... existing HTML ... -->
-
             <!--<div id="like_button_container"></div>-->
-
             <!-- ... existing HTML ... -->
         </div>
         <div class="row">
-
+            <!--<div class="loader"></div>-->
 
             <div class="col-sm-4">
 
@@ -132,7 +133,7 @@
                         </div>
                         <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
                             <div id="archPanel3" class="panel-body">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -185,43 +186,43 @@
                         </div>
                     </div>
                     <!--<div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="heading10" data-toggle="collapse" data-parent="#accordion2" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
-                            <h4 class="panel-title">
-                                1 STORY - BY ARCHITECTURAL FORM
-                            </h4>
-                        </div>
-                        <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
-                            <div class="panel-body">
-                                <div class="row">
+                <div class="panel-heading" role="tab" id="heading10" data-toggle="collapse" data-parent="#accordion2" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                    <h4 class="panel-title">
+                        1 STORY - BY ARCHITECTURAL FORM
+                    </h4>
+                </div>
+                <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
+                    <div class="panel-body">
+                        <div class="row">
 
-                                </div>
-                            </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="heading11" data-toggle="collapse" data-parent="#accordion2" href="#collapse11" aria-expanded="false" aria-controls="collapse11">
-                            <h4 class="panel-title">
-                                3 STORIES - BY FLOOR PLANS
-                            </h4>
-                        </div>
-                        <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading11">
-                            <div class="panel-body">
-                                Content goes here.
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading11" data-toggle="collapse" data-parent="#accordion2" href="#collapse11" aria-expanded="false" aria-controls="collapse11">
+                    <h4 class="panel-title">
+                        3 STORIES - BY FLOOR PLANS
+                    </h4>
+                </div>
+                <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading11">
+                    <div class="panel-body">
+                        Content goes here.
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="heading12" data-toggle="collapse" data-parent="#accordion2" href="#collapse12" aria-expanded="false" aria-controls="collapse12">
-                            <h4 class="panel-title">
-                                3 STORIES - BY ARCHITECTURAL FORM
-                            </h4>
-                        </div>
-                        <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
-                            <div class="panel-body">
-                                Content goes here.
-                            </div>
-                        </div>
-                    </div>-->
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading12" data-toggle="collapse" data-parent="#accordion2" href="#collapse12" aria-expanded="false" aria-controls="collapse12">
+                    <h4 class="panel-title">
+                        3 STORIES - BY ARCHITECTURAL FORM
+                    </h4>
+                </div>
+                <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading12">
+                    <div class="panel-body">
+                        Content goes here.
+                    </div>
+                </div>
+            </div>-->
                 </div>
 
                 <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true">
@@ -235,9 +236,10 @@
                             <div id="wallsAndMaterials" class="panel-body">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation"><a href="#mainmat" aria-controls="mainmat" role="tab" data-toggle="tab">MAIN</a></li>
-                                    <li role="presentation" class="active"><a href="#basemat" aria-controls="basemat" role="tab" data-toggle="tab">BASE</a></li>
-                                    <li role="presentation"><a href="#accentmat" aria-controls="accentmat" role="tab" data-toggle="tab">ACCENT</a></li>
+                                    <li role="presentation"><a href="#mainmat" aria-controls="mainmat" role="tab" data-toggle="tab">MAIN WALL</a></li>
+                                    <li role="presentation" class="active"><a href="#basemat" aria-controls="basemat" role="tab" data-toggle="tab">BASE WALL</a></li>
+                                    <li role="presentation"><a href="#accentmat" aria-controls="accentmat" role="tab" data-toggle="tab">ACCENT WALL</a></li>
+                                    <li role="presentation"><a href="#wallsplit" aria-controls="wallsplit" role="tab" data-toggle="tab">WALL SPLIT</a></li>
                                 </ul>
 
                                 <!-- Tab panes -->
@@ -245,33 +247,25 @@
                                     <div role="tabpanel" class="tab-pane" id="mainmat">
                                         <div class="row" id="mainMaterialsList">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="mainMaterialsColors">Color:</label>
-                                            <select class="form-control" id="mainMaterialsColors" onChange="updateCSV(this, 'MainMaterialColor_T')"></select>
-                                        </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane active" id="basemat">
                                         <div class="row" id="baseMaterialsList">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="baseMaterialsColors">Color:</label>
-                                            <select class="form-control" id="baseMaterialsColors" onChange="updateCSV(this, 'BaseMaterialColor_T')"></select>
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="accentmat">
                                         <div class="row" id="accentMaterialsList">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="accentMaterialsColors">Color:</label>
-                                            <select class="form-control" id="accentMaterialsColors" onChange="updateCSV(this, 'AccentMaterialColor_T')"></select>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="wallsplit">
+                                        <div class="row" id="datumsplbase">
                                         </div>
                                     </div>
                                 </div>
 
 
                                 <!--<div class="row text-center">
-                    <button class="btn btn-default selectBaseMaterial">SELECT</button>
-                </div>-->
+                            <button class="btn btn-default selectBaseMaterial">SELECT</button>
+                        </div>-->
                             </div>
                         </div>
                     </div>
@@ -287,27 +281,33 @@
 
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation"><a href="#colCapital" aria-controls="colCapital" role="tab" data-toggle="tab">CAPITAL</a></li>
-                                    <li role="presentation" class="active"><a href="#colBase" aria-controls="colBase" role="tab" data-toggle="tab">BASE</a></li>
+                                    <li role="presentation"><a href="#colCapital" aria-controls="colCapital" role="tab" data-toggle="tab">COLUMN COLOR</a></li>
+                                    <li role="presentation" class="active"><a href="#colBase" aria-controls="colBase" role="tab" data-toggle="tab">COLUMN STYLE</a></li>
                                 </ul>
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane" id="colCapital">
-                                        <div class="row" id="colCapitalList">
+                                        <div class="row" id="colColor">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="columnColor">Color:</label>
-                                            <select class="form-control" id="columnColor" onChange="updateCSV(this, 'ColumnColor_T')"></select>
-                                        </div>
+                                        <!--<div class="form-group">
+                                    <label for="columnColor">Color:</label>
+                                    <select class="form-control" id="columnColor" onChange="updateCSV(this, 'ColumnColor_T')"></select>
+                                </div>-->
                                     </div>
 
                                     <div role="tabpanel" class="tab-pane active" id="colBase">
+                                        <div class="row" id="colCapitalList">
+                                        </div>
+                                        <hr />
                                         <div class="row" id="colBaseList">
                                         </div>
+                                        <hr />
+
                                         <div class="form-group">
-                                            <label for="columnPlinthHeight">Plinth Height:</label>
-                                            <select class="form-control" id="columnPlinthHeight" onChange="updateCSV(this, 'ColumnPlinthHeight_T')"></select>
+                                            <label for="columnPlinthHeight">Column Plinth Height: <span id="columnPlinthHeightText">0.0</span> </label>
+                                            <input type="range" min="0" max="48" step="0.1" value="0" class="slider" id="columnPlinthHeight" oninput="updateCSVWithSlider(this, 'ColumnPlinthHeight_T', '#columnPlinthHeightText')">
+                                            <!--<select class="form-control" id="columnPlinthHeight" onChange="updateCSV(this, 'ColumnPlinthHeight_T')"></select>-->
                                         </div>
                                     </div>
                                 </div>
@@ -319,86 +319,85 @@
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="heading15" data-toggle="collapse" data-parent="#accordion3" href="#collapse15" aria-expanded="false" aria-controls="collapse15">
                             <h4 class="panel-title">
-                                WINDOWS, TRIM &amp; SHUTTERS
+                                WINDOWS &amp; Doors
                             </h4>
                         </div>
                         <div id="collapse15" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading15">
                             <div class="panel-body" id="windowsAndTrims">
 
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation"><a href="#primary" aria-controls="primary" role="tab" data-toggle="tab">DOORS</a></li>
-                                    <li role="presentation" class="active"><a href="#secondary" aria-controls="secondary" role="tab" data-toggle="tab">WINDOWS</a></li>
-                                    <li role="presentation"><a href="#ternary" aria-controls="ternary" role="tab" data-toggle="tab">TERNARY</a></li>
+                                    <li role="presentation"><a href="#winStyle" aria-controls="winStyle" role="tab" data-toggle="tab">WINDOW STYLE</a></li>
+                                    <li role="presentation" class="active"><a href="#winTrim" aria-controls="winTrim" role="tab" data-toggle="tab">WINDOW TRIM</a></li>
+                                    <li role="presentation"><a href="#doorStyle" aria-controls="doorStyle" role="tab" data-toggle="tab">DOOR STYLR</a></li>
+                                    <li role="presentation"><a href="#doorTrim" aria-controls="doorTrim" role="tab" data-toggle="tab">DOOR TRIM</a></li>
                                 </ul>
 
                                 <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane" id="primary">
+                                    <div role="tabpanel" class="tab-pane" id="winStyle">
 
-                                        <div class="row" id="doorsList">
+                                        <div class="row" id="winStylesList">
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="doorTrimTop">Door Trim Top:</label>
-                                            <select class="form-control" id="doorTrimTop" onChange="updateCSV(this, 'DoorTrimTop_T')"></select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="doorTrimSide">Door Trim Side:</label>
-                                            <select class="form-control" id="doorTrimSide" onChange="updateCSV(this, 'DoorTrimSide_T')"></select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="doorTrimColor">Door Trim Color:</label>
-                                            <select class="form-control" id="doorTrimColor" onChange="updateCSV(this, 'DoorTrimColor_T')"></select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="datumSplBaseProfile">Datum Spl Base Profile:</label>
-                                            <select class="form-control" id="datumSplBaseProfile" onChange="updateCSV(this, 'DatumSplBaseProfile_T')"></select>
-                                        </div>
 
                                     </div>
-                                    <div role="tabpanel" class="tab-pane active" id="secondary">
-                                        <div class="row" id="secondaryWindowsList">
+                                    <div role="tabpanel" class="tab-pane active" id="winTrim">
+                                        <label>Window Trim Top:</label>
+                                        <div class="row" id="winTrimTop">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="winTrimTop">Windows Trim Top:</label>
-                                            <select class="form-control" id="winTrimTop" onChange="updateCSV(this, 'WinTrimTop_T')"></select>
+                                        <hr />
+                                        <label>Window Trim Side:</label>
+                                        <div class="row" id="winTrimSide">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="winTrimSide">Windows Trim Side:</label>
-                                            <select class="form-control" id="winTrimSide" onChange="updateCSV(this, 'WinTrimSide_T')"></select>
+                                        <hr />
+                                        <label>Window Trim Bottom:</label>
+                                        <div class="row" id="winTrimBottom">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="winTrimBottom">Windows Trim Bottom:</label>
-                                            <select class="form-control" id="winTrimBottom" onChange="updateCSV(this, 'WinTrimBottom_T')"></select>
+                                        <hr />
+                                        <label>Window Trim Color:</label>
+                                        <div class="row" id="winTrimColor">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="winTrimColor">Windows Trim Color:</label>
-                                            <select class="form-control" id="winTrimColor" onChange="updateCSV(this, 'WinTrimColor_T')"></select>
+                                        <hr />
+                                        <label>Window Shutter Color:</label>
+                                        <div class="row" id="winShutterColor">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="winShutterColor">Windows Shutter Color:</label>
-                                            <select class="form-control" id="winShutterColor" onChange="updateCSV(this, 'WinShutterColor_T')"></select>
+                                        <hr />
+                                        <div class="checkbox">
+                                            <label><input id="winShutter" oninput="updateCSVWithCheckBox(this, 'WinShutter_T')" type="checkbox" value="">Window Shutter</label>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="winShutter">Windows Shutter:</label>
-                                            <select class="form-control" id="winShutter" onChange="updateCSV(this, 'WinShutter_T')"></select>
+                                        <div class="checkbox">
+                                            <label><input id="winKey" oninput="updateCSVWithCheckBox(this, 'WinKey_T')" type="checkbox" value="">Window Key</label>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="winKey">Windows Key:</label>
-                                            <select class="form-control" id="winKey" onChange="updateCSV(this, 'WinKey_T')"></select>
+                                        <div class="checkbox">
+                                            <label><input id="winBay" oninput="updateCSVWithCheckBox(this, 'WinBay_T')" type="checkbox" value="">Window Bay</label>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="winBay">Windows Bay:</label>
-                                            <select class="form-control" id="winBay" onChange="updateCSV(this, 'WinBay_T')"></select>
+
+                                        <!--<div class="form-group">
+                                    <label for="winBay">Windows Bay:</label>
+                                    <select class="form-control" id="winBay" onChange="updateCSV(this, 'WinBay_T')"></select>
+                                </div>-->
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="doorStyle">
+                                        <div class="row" id="doorsStylesList">
                                         </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="ternary">
-
+                                    <div role="tabpanel" class="tab-pane" id="doorTrim">
+                                        <label>Doors Trim Top:</label>
+                                        <div class="row" id="doorsTrimTop">
+                                        </div>
+                                        <hr />
+                                        <label>Doors Trim Side:</label>
+                                        <div class="row" id="doorsTrimSide">
+                                        </div>
+                                        <hr />
+                                        <label>Doors Trim Color:</label>
+                                        <div class="row" id="doorsTrimColor">
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!--<div class="row text-center">
-                    <button class="btn btn-default selectBaseMaterial">SELECT</button>
-                </div>-->
+                            <button class="btn btn-default selectBaseMaterial">SELECT</button>
+                        </div>-->
 
                             </div>
                         </div>
@@ -411,57 +410,91 @@
                         </div>
                         <div id="collapse16" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading16">
                             <div class="panel-body" id="porch">
-                                <div class="row" id="porchList">
+                                <!--<div class="row" id="porchList">
+                        </div>-->
+
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation"><a href="#porchstyle" aria-controls="mainmat" role="tab" data-toggle="tab">PORCH STYLE</a></li>
+                                    <li role="presentation" class="active"><a href="#porchspan" aria-controls="porchspan" role="tab" data-toggle="tab">PORCH SPAN</a></li>
+                                    <li role="presentation"><a href="#railing" aria-controls="railing" role="tab" data-toggle="tab">RAILING</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane" id="porchstyle">
+                                        <div class="row" id="porchStyleList">
+                                        </div>
+
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane active" id="porchspan">
+                                        <div class="row" id="porchSpan">
+                                        </div>
+
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="railing">
+                                        <label>Rail Top:</label>
+                                        <div class="row" id="porchRailTop">
+                                        </div>
+                                        <hr />
+                                        <label>Rail Bottom:</label>
+                                        <div class="row" id="porchRailBottom">
+                                        </div>
+                                        <hr />
+                                        <label>Rail Bal:</label>
+                                        <div class="row" id="porchRailBal">
+                                        </div>
+
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="porchSpan">Porch Span:</label>
-                                    <select class="form-control" id="porchSpan" onChange="updateCSV(this, 'PorchSpan_T')"></select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="railTop">Rail Top:</label>
-                                    <select class="form-control" id="railTop" onChange="updateCSV(this, 'RailTop_T')"></select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="railBottom">Rail Bottom:</label>
-                                    <select class="form-control" id="railBottom" onChange="updateCSV(this, 'RailBottom_T')"></select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="railBal">Rail Bal:</label>
-                                    <select class="form-control" id="railBal" onChange="updateCSV(this, 'RailBal_T')"></select>
-                                </div>
+
+
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="heading17" data-toggle="collapse" data-parent="#accordion3" href="#collapse17" aria-expanded="false" aria-controls="collapse17">
-                            <h4 class="panel-title">
-                                ROOF
-                            </h4>
-                        </div>
-                        <div id="collapse17" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading17">
-                            <div class="panel-body">
-                                Content goes here.
-                            </div>
-                        </div>
+                    <!--<div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading17" data-toggle="collapse" data-parent="#accordion3" href="#collapse17" aria-expanded="false" aria-controls="collapse17">
+                    <h4 class="panel-title">
+                        ROOF
+                    </h4>
+                </div>
+                <div id="collapse17" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading17">
+                    <div class="panel-body">
+                        Content goes here.
                     </div>
+                </div>
+            </div>-->
 
                     <div class="row text-center">
                         <button class="btn btn-default selectBaseMaterial">SELECT</button>
                     </div>
 
                     <!--<div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="heading18" data-toggle="collapse" data-parent="#accordion3" href="#collapse18" aria-expanded="false" aria-controls="collapse18">
-            <h4 class="panel-title">
-                3 STORIES - BY ARCHITECTURAL FORM
-            </h4>
-        </div>
-        <div id="collapse18" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading18">
-            <div class="panel-body">
-                Content goes here.
-            </div>
-        </div>
-    </div>-->
+                <div class="panel-heading" role="tab" id="heading18" data-toggle="collapse" data-parent="#accordion3" href="#collapse18" aria-expanded="false" aria-controls="collapse18">
+                    <h4 class="panel-title">
+                        3 STORIES - BY ARCHITECTURAL FORM
+                    </h4>
+                </div>
+                <div id="collapse18" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading18">
+                    <div class="panel-body">
+                        Content goes here.
+                    </div>
+                </div>
+            </div>-->
+                </div>
+
+                <div class="panel-group" id="accordion4" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="mymodelsheading" data-toggle="collapse" data-parent="#accordion4" href="#mymodelscollapse" aria-expanded="true" aria-controls="mymodelscollapse">
+                            <h4 class="panel-title">
+                                MY MODELS
+                            </h4>
+                        </div>
+                        <div id="mymodelscollapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="mymodelsheading">
+                            <div id="mymodels" class="panel-body">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -470,10 +503,10 @@
 
             <div class="col-sm-8">
                 <!--<div class="row">
-        <div style="text-align: center;">
-            <h3>Count/Delete elements from Revit file</h3>
-        </div>
-    </div>-->
+            <div style="text-align: center;">
+                <h3>Count/Delete elements from Revit file</h3>
+            </div>
+        </div>-->
 
                 <div class="row">
                     <div class="col-sm-12 text-center">
@@ -490,95 +523,95 @@
                         <img id="plans" class="img-responsive" src="images/plans.png" alt="BIMQuote" />
                     </div>
 
-                    
-                    
+
+
                     <div class="col-sm-4">
                         <img id="facades" class="img-responsive" src="images/facades.png" alt="BIMQuote" />
                     </div>
-                    
+
                     <div class="col-sm-4">
                         <img id="interior" class="img-responsive" src="images/interior.png" alt="BIMQuote" />
                     </div>
-                    
+
                 </div>
 
-                
+
 
                 <!--<div class="row">
 
-        <div class="col-lg-4">
-            <div class="form-group">
-                <label for="Facade Style">Facade Style</label>
-                <select class="form-control" id="Facade-Style">
-                    <option value="Chicago">Chicago</option>
-                    <option value="San Francisco">San Francisco</option>
-                    <option value="Tuscany">Tuscany</option>
-                </select>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="Facade Style">Facade Style</label>
+                    <select class="form-control" id="Facade-Style">
+                        <option value="Chicago">Chicago</option>
+                        <option value="San Francisco">San Francisco</option>
+                        <option value="Tuscany">Tuscany</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="Exterior Material">Exterior Material</label>
+                    <select class="form-control" id="Exterior-Material">
+                        <option value="Wood Lap">Wood Lap</option>
+                        <option value="Brick">Brick</option>
+                        <option value="Stucco">Stucco</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="Material Color">Material Color</label>
+                    <select class="form-control" id="Material-Color">
+                        <option value="White">White</option>
+                        <option value="Yellow">Yellow</option>
+                    </select>
+                </div>
             </div>
         </div>
 
-        <div class="col-lg-4">
-            <div class="form-group">
-                <label for="Exterior Material">Exterior Material</label>
-                <select class="form-control" id="Exterior-Material">
-                    <option value="Wood Lap">Wood Lap</option>
-                    <option value="Brick">Brick</option>
-                    <option value="Stucco">Stucco</option>
-                </select>
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="Roofing Material">Roofing Material</label>
+                    <select class="form-control" id="Roofing-Material">
+                        <option value="Shinqles">Shinqles</option>
+                        <option value="Terra Cotta">Terra Cotta</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="Fenestration">Fenestration</label>
+                    <select class="form-control" id="Fenestration">
+                        <option value="Default">Default</option>
+                        <option value="None">None</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="Column Style">Column Style</label>
+                    <select class="form-control" id="Column-Style">
+                        <option value="Round">Round</option>
+                        <option value="Square">Square</option>
+                        <option value="None">None</option>
+                    </select>
+                </div>
             </div>
         </div>
 
-        <div class="col-lg-4">
-            <div class="form-group">
-                <label for="Material Color">Material Color</label>
-                <select class="form-control" id="Material-Color">
-                    <option value="White">White</option>
-                    <option value="Yellow">Yellow</option>
-                </select>
-            </div>
+
+        <div class="form-group">
+            <label for="activity">Existing activities</label>
+            <select class="form-control" id="activity"> </select>
         </div>
-    </div>
-
-    <div class="row">
-
-        <div class="col-lg-4">
-            <div class="form-group">
-                <label for="Roofing Material">Roofing Material</label>
-                <select class="form-control" id="Roofing-Material">
-                    <option value="Shinqles">Shinqles</option>
-                    <option value="Terra Cotta">Terra Cotta</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="form-group">
-                <label for="Fenestration">Fenestration</label>
-                <select class="form-control" id="Fenestration">
-                    <option value="Default">Default</option>
-                    <option value="None">None</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="form-group">
-                <label for="Column Style">Column Style</label>
-                <select class="form-control" id="Column-Style">
-                    <option value="Round">Round</option>
-                    <option value="Square">Square</option>
-                    <option value="None">None</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <label for="activity">Existing activities</label>
-        <select class="form-control" id="activity"> </select>
-    </div>
-    <center><button class="btn btn-primary" id="startWorkitem">Start workitem</button></center><br />-->
+        <center><button class="btn btn-primary" id="startWorkitem">Start workitem</button></center><br />-->
 
 
 
@@ -651,7 +684,8 @@
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
     <!-- Load our React component. -->
-    <script src="/js/like_button.js" type="text/babel"></script>
+    <script src="/js/like_button.js" type="text/babel">
+    </script>
 </body>
 
 </html>

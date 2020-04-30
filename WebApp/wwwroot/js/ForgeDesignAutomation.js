@@ -233,6 +233,10 @@ function startWorkitem() {
                 type: 'POST',
                 success: function (res) {
                     writeLog('Workitem started: ' + res.workItemId);
+                    $("#mainViewImg").hide();
+                    $("#forgeViewer").show();
+                    $("#forgeViewer").html(`Workitem started  <div class="loader"></div>`);
+                    //$("#forgeViewer").html(`<span class="loader"></span>`);
                 }
             });
         });
@@ -264,65 +268,50 @@ function startConnection(onReady) {
         });
 
     connection.on("downloadResult", function (url) {
-        writeLog('<a href="' + url + '">Download result file here</a>');
-        jQuery.ajax({
-            url: '/api/forge/oss/buckets',
-            method: 'GET',
-            data: {
-                'id': `${currentFacadeStyle}bucket`,
-            },
-            success: function (result) {
-                var newModel;
-                var biggestTime = 0;
-                result.forEach(function (item) {
-                    if (parseInt(item.text.split('.')[0].split('_')[0]) > biggestTime) {
-                        biggestTime = parseInt(item.text.split('.')[0].split('_')[0]);
-                        newModel = item;
-                    }
-                });
-                // request that model to be viewed in the forge viewer
+        //jQuery.ajax({
+        //    url: '/api/forge/oss/buckets',
+        //    method: 'GET',
+        //    data: {
+        //        'id': 'generatedmodelsbucket',
+        //    },
+        //    success: function (result) {
+        //        var newModel;
+        //        var biggestTime = 0;
+        //        result.forEach(function (item) {
+        //            if (parseInt(item.text.split('.')[0].split('_')[0]) > biggestTime) {
+        //                biggestTime = parseInt(item.text.split('.')[0].split('_')[0]);
+        //                newModel = item;
+        //            }
+        //        });
 
-                $("#forgeViewer").empty();
-                console.log(currentFacadeStyle);
-                console.log(biggestTime);
-                console.log(newModel);
-                var urn = newModel.id;
-                startConnection(function () {
-                    jQuery.post({
-                        url: '/api/forge/modelderivative/jobs',
-                        contentType: 'application/json',
-                        data: JSON.stringify({ 'bucketKey': currentFacadeStyle+'bucket', 'objectName': newModel.id, 'connectionId': connectionId }),
-                        success: function (res) {
-                            $("#mainViewImg").hide();
-                            $("#forgeViewer").show();
-                            $("#forgeViewer").html('Translation started! Model will load when ready..');
-                            // we can load it here ba2a
-                        }
-                    });
-                });
+        //        $("#forgeViewer").empty();
+        //        console.log(currentFacadeStyle);
+        //        console.log(biggestTime);
+        //        console.log(newModel);
+        //        var urn = newModel.id;
+        //        startConnection(function () {
+        //            jQuery.post({
+        //                url: '/api/forge/modelderivative/jobs',
+        //                contentType: 'application/json',
+        //                data: JSON.stringify({ 'bucketKey': 'generatedmodelsbucket', 'objectName': newModel.id, 'connectionId': connectionId }),
+        //                success: function (res) {
+        //                    $("#mainViewImg").hide();
+        //                    $("#forgeViewer").show();
+        //                    $("#forgeViewer").html('Translation started! Model will load when ready..');
+        //                    // we can load it here ba2a
+        //                },
+        //                error: function (err) {
+        //                    console.log(err);
+        //                    var msgButton = `This file is not translated yet!
+        //                            <button class="btn btn-xs btn-info" onClick="translateMyObject('generatedmodelsbucket', '${newModel.id}')"><span class="glyphicon glyphicon-eye-open"></span>
+        //                            Start translation</button>`
+        //                    $("#forgeViewer").html(msgButton);
+        //                }
+        //            });
+        //        });
 
-
-                //getForgeToken(function (access_token) {
-                //    console.log(access_token);
-                //    jQuery.ajax({
-                //        url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
-                //        headers: { 'Authorization': 'Bearer ' + access_token },
-                //        success: function (res) {
-                //            if (res.status === 'success') launchViewer(urn);
-                //            else $("#forgeViewer").html('The translation job still running: ' + res.progress + '. Please try again in a moment.');
-                //        },
-                //        error: function (err) {
-                //            var msgButton = 'This file is not translated yet! ' +
-                //                '<button class="btn btn-xs btn-info" onclick="translateObject()"><span class="glyphicon glyphicon-eye-open"></span> ' +
-                //                'Start translation</button>'
-                //            $("#forgeViewer").html(msgButton);
-                //        }
-                //    });
-                //})
-
-
-            }
-        });
+        //    }
+        //});
     });
 
     connection.on("countItResult", function (result) {
@@ -330,13 +319,67 @@ function startConnection(onReady) {
         writeLog(result);
     });
     connection.on("onComplete", function (message) {
-        console.log(message);
+        try {
+            var j = JSON.parse(message);
+            jQuery.ajax({
+                url: '/api/forge/oss/buckets',
+                method: 'GET',
+                data: {
+                    'id': 'generatedmodelsbucket',
+                },
+                success: function (result) {
+                    var newModel;
+                    var biggestTime = 0;
+                    result.forEach(function (item) {
+                        if (parseInt(item.text.split('.')[0].split('_')[0]) > biggestTime) {
+                            biggestTime = parseInt(item.text.split('.')[0].split('_')[0]);
+                            newModel = item;
+                        }
+                    });
+
+                    $("#forgeViewer").empty();
+                    console.log(currentFacadeStyle);
+                    console.log(biggestTime);
+                    console.log(newModel);
+                    var urn = newModel.id;
+
+                        jQuery.post({
+                            url: '/api/forge/modelderivative/jobs',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ 'bucketKey': 'generatedmodelsbucket', 'objectName': newModel.id, 'connectionId': connectionId }),
+                            success: function (res) {
+                                $("#mainViewImg").hide();
+                                $("#forgeViewer").show();
+                                $("#forgeViewer").html('Translation started! Model will load when ready <div class="loader"></div> ');
+                                // we can load it here ba2a
+                            },
+                            error: function (err) {
+                                console.log(err);
+                                var msgButton = `This file is not translated yet!
+                                    <button class="btn btn-xs btn-info" onClick="translateMyObject('generatedmodelsbucket', '${newModel.id}')"><span class="glyphicon glyphicon-eye-open"></span>
+                                    Start translation</button>`
+                                $("#forgeViewer").html(msgButton);
+                            }
+                        });
+
+
+                }
+            });
+        } catch (e) {
+            
+        }
+        
+        //console.log(typeof (message));
+        //console.log(message);
+        
+        
         //let instance = $('#appBuckets').jstree(true);
         //selectNode = instance.get_selected(true)[0];
         //parentNode = instance.get_parent(selectNode);
         //instance.refresh_node(parentNode);
     });
     connection.on("extractionFinished", function (data) {
+        $("#forgeViewer").empty();
         launchViewer(data.resourceUrn);
     });
 
