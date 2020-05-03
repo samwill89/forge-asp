@@ -30,9 +30,6 @@ $(document).ready(function () {
 
     $(".selectBaseMaterial").click(function () {
         currentSelectedBucket = csvData[currentSelectedStyle]['Style'].toLowerCase() + 'bucket';
-        console.log(currentSelectedBucket);
-        console.log(currentSelectedModel);
-        console.log(csvData[currentSelectedStyle]);
         startWorkitem();
     })
 
@@ -53,18 +50,18 @@ var csvData;
 var currentSelectedStyle = 0;
 var currentSelectedBucket = "";
 var currentSelectedModel = "";
+// This function will retrieve the csv file found at WebApp/wwwroot/CSVData/BIM Quote Facades.csv with the help of the API 'api/forge/appdata/all'
+// that can be found at wwwroot/Controllers/AppDataController.cs
+// Then it populates the first menud (#accordion2) with this data
 function getAllData() {
     jQuery.ajax({
         url: 'api/forge/appdata/all',
         method: 'GET',
-        //dataType: "json",
-        //multiple: false,
-        //data: function () {
-        //    return { "style": "FarmHouse" };
-        //},
         success: function (result) {
-            //console.log(result[0]);
+            // assigning the result to a variable as we will need it later
             csvData = result;
+            // This loop will replace every '-' to '_' as these are the variable names (can't contain '-') in the back-end
+            // for example. 'WinTrimBottom-T' will be 'WinTrimBottom_T'
             csvData.forEach((element) => {
                 Object.keys(element).forEach(function (key) {
                     if (key.indexOf('-') != -1) {
@@ -74,14 +71,14 @@ function getAllData() {
                     }
                 });
             });
-            //console.log(Object.keys(result[0]));
             var i = 1;
-            var styles = Object.keys(result[0]);
-            styles.splice(0, 1);
-            $('#popularityList').empty();
+            var styles = Object.keys(result[0]); // This variable will contain all the parameters in the CSV, like "MainMaterial_T", "BaseMaterial_T", and so on
+            styles.splice(0, 1); // The first element is just the word 'style' and it's not a real parameter
+            $('#popularityList').empty(); // make sure that nothing is in theis div element
+            // In this loop, we will use the 'result' variable to populate the list of styles in the CSV file, here, we will show only the first 9
+            // Also. the images can be found in "WebApp\wwwroot\images\facades" and everr images is named as the name of this style
+            // We also bind every image with an onClick event that calls the GetStyleData() function
             result.forEach(function (item) {
-                // img source should be the same as the text of the model
-                // onClick here will load the corresponding 3d model
                 if (i <= 9) {
                     $('#popularityList').append(`<div class="col-sm-4 inner-img" data-toggle="tooltip" data-placement="right" title="${item.Style}">
                     <img id="style${i - 1}" class="img-responsive styles" src ="images/facades/${item.Style}.jpg" alt ="${item.Style}" onClick="GetStyleData('${i-1}')" />
@@ -94,6 +91,8 @@ function getAllData() {
     });
 }
 
+// This function will be called whenever a style is selected
+// And it's responsible for displaying the border around the image of that style and also to save the current style index for later
 function GetStyleData(index) {
     currentSelectedStyle = index;
     $(".styles").each(function () {
@@ -204,14 +203,6 @@ function createActivity(cb) {
 
 
 function startWorkitem() {
-    //let sourceNode = $('#appBuckets').jstree(true).get_selected(true)[0];
-    // use == here because sourceNode may be undefined or null
-    //if (sourceNode == null || sourceNode.type !== 'object' ) {
-    //    alert('Can not get the selected file, please make sure you select a file as input');
-    //    return;
-    //}
-
-    //let activityId = $('#activity').val();
     let activityId = "DeleteElementsActivity+dev";
     if (activityId == null) { alert('Please select an activity'); return };
 
@@ -236,7 +227,6 @@ function startWorkitem() {
                     $("#mainViewImg").hide();
                     $("#forgeViewer").show();
                     $("#forgeViewer").html(`Workitem started  <div class="loader"></div>`);
-                    //$("#forgeViewer").html(`<span class="loader"></span>`);
                 }
             });
         });
@@ -268,50 +258,7 @@ function startConnection(onReady) {
         });
 
     connection.on("downloadResult", function (url) {
-        //jQuery.ajax({
-        //    url: '/api/forge/oss/buckets',
-        //    method: 'GET',
-        //    data: {
-        //        'id': 'generatedmodelsbucket',
-        //    },
-        //    success: function (result) {
-        //        var newModel;
-        //        var biggestTime = 0;
-        //        result.forEach(function (item) {
-        //            if (parseInt(item.text.split('.')[0].split('_')[0]) > biggestTime) {
-        //                biggestTime = parseInt(item.text.split('.')[0].split('_')[0]);
-        //                newModel = item;
-        //            }
-        //        });
-
-        //        $("#forgeViewer").empty();
-        //        console.log(currentFacadeStyle);
-        //        console.log(biggestTime);
-        //        console.log(newModel);
-        //        var urn = newModel.id;
-        //        startConnection(function () {
-        //            jQuery.post({
-        //                url: '/api/forge/modelderivative/jobs',
-        //                contentType: 'application/json',
-        //                data: JSON.stringify({ 'bucketKey': 'generatedmodelsbucket', 'objectName': newModel.id, 'connectionId': connectionId }),
-        //                success: function (res) {
-        //                    $("#mainViewImg").hide();
-        //                    $("#forgeViewer").show();
-        //                    $("#forgeViewer").html('Translation started! Model will load when ready..');
-        //                    // we can load it here ba2a
-        //                },
-        //                error: function (err) {
-        //                    console.log(err);
-        //                    var msgButton = `This file is not translated yet!
-        //                            <button class="btn btn-xs btn-info" onClick="translateMyObject('generatedmodelsbucket', '${newModel.id}')"><span class="glyphicon glyphicon-eye-open"></span>
-        //                            Start translation</button>`
-        //                    $("#forgeViewer").html(msgButton);
-        //                }
-        //            });
-        //        });
-
-        //    }
-        //});
+       
     });
 
     connection.on("countItResult", function (result) {
@@ -330,6 +277,7 @@ function startConnection(onReady) {
                 success: function (result) {
                     var newModel;
                     var biggestTime = 0;
+                    // Here, we know that the new model has the most recent time and thats how we decide that it's the model we want to view
                     result.forEach(function (item) {
                         if (parseInt(item.text.split('.')[0].split('_')[0]) > biggestTime) {
                             biggestTime = parseInt(item.text.split('.')[0].split('_')[0]);
@@ -338,9 +286,9 @@ function startConnection(onReady) {
                     });
 
                     $("#forgeViewer").empty();
-                    console.log(currentFacadeStyle);
-                    console.log(biggestTime);
-                    console.log(newModel);
+                    //console.log(currentFacadeStyle);
+                    //console.log(biggestTime);
+                    //console.log(newModel);
                     var urn = newModel.id;
 
                         jQuery.post({
@@ -351,7 +299,6 @@ function startConnection(onReady) {
                                 $("#mainViewImg").hide();
                                 $("#forgeViewer").show();
                                 $("#forgeViewer").html('Translation started! Model will load when ready <div class="loader"></div> ');
-                                // we can load it here ba2a
                             },
                             error: function (err) {
                                 console.log(err);
@@ -368,15 +315,6 @@ function startConnection(onReady) {
         } catch (e) {
             
         }
-        
-        //console.log(typeof (message));
-        //console.log(message);
-        
-        
-        //let instance = $('#appBuckets').jstree(true);
-        //selectNode = instance.get_selected(true)[0];
-        //parentNode = instance.get_parent(selectNode);
-        //instance.refresh_node(parentNode);
     });
     connection.on("extractionFinished", function (data) {
         $("#forgeViewer").empty();
