@@ -18,11 +18,16 @@
 
 $(document).ready(function () {
 
+    // In this section, we construct the html code that for the #accordion1 section, as we need to have multiple ids
+    // so that we can decide where to put a model depending on its story number and bed count
 
+    // Initialize arrays for the ids of the 6 sections in this menu
     var floorPlanIDs = ['floorPanel1', 'floorPanel2', 'floorPanel3'];
     var archPanelIDs = ['archPanel1', 'archPanel2', 'archPanel3'];
     floorPlanIDs.forEach(id => {
         var storyNumber = id[id.length - 1];
+        // the href variables here are used to differentiate between tabs (so that they are related to each others)
+        // the iportant this here is the empty divs we make with the ids that starts with 'floorPlansList'
         $('#' + id).append(`<ul class="nav nav-tabs" role="tablist">
                                     <li role="presentation"><a href="#1bed${storyNumber}f" aria-controls="1bed${storyNumber}f" role="tab" data-toggle="tab">1 Bed</a></li>
                                     <li role="presentation"><a href="#2bed${storyNumber}f" aria-controls="2bed${storyNumber}f" role="tab" data-toggle="tab">2 Bed</a></li>
@@ -59,6 +64,7 @@ $(document).ready(function () {
                                 </div>`)
     });
 
+    // Same as the above section but for the architectural view menus
     archPanelIDs.forEach(id => {
         var storyNumber = id[id.length - 1];
         $('#' + id).append(`<ul class="nav nav-tabs" role="tablist">
@@ -98,12 +104,11 @@ $(document).ready(function () {
     });
 
 
-
+    // Here, we bind the onClick function of the 'Pick Facade' button to hide the accordion2 element and show the accordion1 element
+    // Also, we execute the TestOBjectsData() function which is reponsible for 
     $('.pickFacade').click(function () {
         $("#accordion2").hide();
         $("#accordion1").show();
-        //console.log(csvData[currentSelectedStyle]['Style']);
-
         TestOBjectsData(csvData[currentSelectedStyle]['Style'].toLowerCase());
     })
 
@@ -111,7 +116,6 @@ $(document).ready(function () {
         $("#accordion1").hide();
         $("#accordion3").show();
         PrepareUniqueValues();
-        populateExteriorMenu();
     })
 
 
@@ -162,6 +166,10 @@ $(document).ready(function () {
 var currentFacadeStyle;
 var uniqueCSVData = {};
 function PrepareUniqueValues() {
+    // The purpose of this part is to have an object that is similar to the csvData object but without duplicates
+    // For example: the MainMaterial-T key in the csv file has the values (Siding, Siding BoardBatten, Brick, Stone, and Brick Siding)
+    // But after this step, we need it to be just (Siding, BoardBatten, Brick, and Stone). So we only have the unique values for this key
+    // And also separete the ones with spaces
     var j = 0;
     csvData.forEach(item => {
         if (j === 0) {
@@ -177,7 +185,6 @@ function PrepareUniqueValues() {
                 item[key].split(" ").forEach(el => {
                     newArr.push(el);
                 })
-                //newArr.push(item[key]);
             }
             uniqueCSVData[key] = newArr;
         });
@@ -188,7 +195,7 @@ function PrepareUniqueValues() {
         uniqueCSVData[key] = uniq;
     })
 
-
+    // prepare the list the walls can take
     var wallTypes = [
         'Stone Yellow',
         'Stone Orange',
@@ -206,6 +213,7 @@ function PrepareUniqueValues() {
         'BoardBatten Eggshell'
     ];
 
+    // prepare the rails list
     var rails = [
         'Regal',
         'Medium1',
@@ -213,6 +221,7 @@ function PrepareUniqueValues() {
         'Royal'
     ];
 
+    // prepare the window styles list (As not all of them are in the csv)
     var winStyle = [
         'SH1x - Regal',
         'SH2x - Regal',
@@ -419,11 +428,6 @@ function logKey(e) {
     }
 }
 
-function populateExteriorMenu() {
-    //console.log(csvData);
-    //console.log(uniqueCSVData);
-}
-//var colors = ['Boreal', 'White', 'Dark', 'Earth', 'Desert'];
 var colorsInAray = {
     "Boreal": ['Dark Green', 'Medium Blue'],
     "White": ['White', 'Eggshell'],
@@ -431,8 +435,10 @@ var colorsInAray = {
     "Earth": ['Red', 'Brown'],
     "Desert": ['Yellow', 'Orange']
 };
+
+// This function is responsible for updating the values in the csvData variable by the value of the element selected by the user in the #accordion3 section
 function ModifyCSV(element, key, value) {
-    console.log(element);
+    //console.log(element);
     className = element.classList[1];
     csvData[currentSelectedStyle][key] = value;
     $(`.${className}`).each(function () {
@@ -440,9 +446,9 @@ function ModifyCSV(element, key, value) {
     });
     $(element).addClass("activeStyle");
 }
-
+// This function is the same as the ModifyCSV but with different parameters and it's also responsible for changing the csvData variable
 function ModifyCSVForWallType(element, key1, key2, value1, value2) {
-    console.log(element);
+    //console.log(element);
     className = element.classList[1];
     csvData[currentSelectedStyle][key1] = value1;
     Object.keys(colorsInAray).forEach(e => {
@@ -455,15 +461,12 @@ function ModifyCSVForWallType(element, key1, key2, value1, value2) {
     });
     $(element).addClass("activeStyle");
 }
-
-function updateCSV(element, key) {
-    csvData[currentSelectedStyle][key] = element.selectedOptions[0].value;
-}
+// This function is responsible for updating the csvData variable but only in the slider case
 function updateCSVWithSlider(element, key, textId) {
     $(textId)[0].innerText = element.value;
     csvData[currentSelectedStyle][key] = element.value;
 }
-
+// This function is responsible for updating the csvData variable but only in the ceckbox case
 function updateCSVWithCheckBox(element, key) {
     if (key === 'WinBay_T') {
         if (element.checked) {
@@ -484,25 +487,33 @@ function updateCSVWithCheckBox(element, key) {
 }
 
 
+function updateCSV(element, key) {
+    csvData[currentSelectedStyle][key] = element.selectedOptions[0].value;
+}
+
+// This function is called whenever we select a specific style and then click on the 'Pick Facade' button
+// It's job is to construct the following menu (#accordion1)
 function TestOBjectsData(facadestyle) {
     currentFacadeStyle = facadestyle;
+    // Here, we construct the request sent to the API with the name of the bucket we want to retrieve
+    // There is a bucket for every style we have named as follows *facadestyle*bucket, for example: farmhousebucket
     jQuery.ajax({
         url: '/api/forge/oss/buckets',
         method: 'GET',
         data: {
-            'id': `${facadestyle}bucket`,
+            'id': `${facadestyle}bucket`, // The id is how we specify a bucket
         },
         success: function (result) {
-
-
             var i = 1;
-            //$('#floorPlansList').empty();
             result.forEach(function (item) {
-                //console.log(item.text);
+
+                // parse the name of the model so that we can decide where it belongs
                 var modelName = item.text.split('.')[0].split('_')[0];
                 var storiesNumber = item.text.split('.')[0].split('_')[1];
                 var bedCount = item.text.split('.')[0].split('_')[2];
                 var area = item.text.split('.')[0].split('_')[3];
+
+                // construct the #accordion1 menus
                 $(`#floorPlansList${storiesNumber}${bedCount}`).append(`<div id="#${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.text}','${item.id}', 'plan', this)" data-toggle="tooltip" data-placement="right" title="${item.text}">
                     <img class="img-responsive floor-plan-style" src ="images/plans/${modelName}.png" alt ="${item.text}" />
                                     </div >`);
@@ -510,93 +521,51 @@ function TestOBjectsData(facadestyle) {
                 $(`#archFormList${storiesNumber}${bedCount}`).append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.text}','${item.id}', 'arch', this)" data-toggle="tooltip" data-placement="right" title="${item.text}">
                     <img class="img-responsive arch-form-style" src ="images/plans/${modelName}.png" alt ="${item.text}" />
                                     </div >`);
-                //console.log(modelName);
-                //console.log(storiesNumber);
-                //console.log(bedCount);
-                //console.log(area);
-                // img source should be the same as the text of the model
-                // onClick here will load the corresponding image
-
-                //$('#floorPlansList').append(`<div id="#${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}', 'plan')" data-toggle="tooltip" data-placement="right" title="${item.text}">
-                //    <img class="img-responsive" src ="images/plans/${modelName}.png" alt ="${item.text}" />
-                //                    </div >`);
-
-                //if (i % 3 == 0) {
-                //    $('#floorPlansList').append(`<br />`);
-                //}
-                //i++;
             });
-
-            //i = 1;
-            //$('#archFormList').empty();
-            //result.forEach(function (item) {
-            //    // img source should be the same as the text of the model
-            //    // onClick here will load the corresponding 3d model
-            //    $('#archFormList').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.id}', 'arch')" data-toggle="tooltip" data-placement="right" title="${item.text}">
-            //        <img class="img-responsive" src ="images/axons/${i}.png" alt ="${item.text}" />
-            //                        </div >`);
-
-            //    if (i % 3 == 0) {
-            //        // onClick here will load the corresponding image
-            //        $('#archFormList').append(`<br />`);
-            //    }
-            //    i++;
-            //});
-
-
-
-          
-            
         }
     });
 }
 
+
+// This function will be executed whenever we click on an item in the #accordion1 menu
+// There are 2 cases here, if the it's a plan type or an architectural type (depending on the type on the menu we are at)
 function loadModel(modelName, modelID, type, element) {
     currentSelectedModel = modelName;
-    //console.log(element.firstChild.nextSibling);
     if (type == "plan") {
+        // Here, we just make sure that we change the selected item style
         $(".floor-plan-style").each(function () {
             $(this).removeClass("activeStyle");
         });
         $(element.firstChild.nextSibling).addClass("activeStyle");
-        //element.children(":first")
+        // Then, we get the src of that image we selected to apply it to the main view and the three buttom images using the 'axon' and 'sides' folders
         var src = document.getElementById('#'+modelID).firstElementChild.getAttribute('src');
         $("#mainViewImg").attr("src", src);
         $("#plans").attr("src", src);
         $("#facades").attr("src", 'images/axons/' + src.split('/').slice(-1)[0]);
-        $("#facades").unbind().click(function () {
-            loadModel(modelID, 'arch');
-        })
         $("#interior").attr("src", 'images/sides/' + src.split('/').slice(-1)[0]);
-        $("#interior").unbind().click(function () {
-            loadModel(modelID, 'arch');
-        })
     }
 
     if (type == "arch") {
-
+        // Some styling as the above condition does
         $(".arch-form-style").each(function () {
             $(this).removeClass("activeStyle");
         });
         $(element.firstChild.nextSibling).addClass("activeStyle");
+
+        // Getting ready to show the 3D model
         $("#mainViewImg").hide();
         $("#forgeViewer").show();
 
+        // Again, getting the corresponding images of the shown model
         var src = document.getElementById(modelID).firstElementChild.getAttribute('src').split('/').slice(-1)[0];
         $("#plans").attr("src", 'images/plans/' + src);
         $("#facades").attr("src", 'images/axons/' + src);
-        $("#facades").unbind().click(function () {
-            loadModel(modelID, 'arch');
-        })
         $("#interior").attr("src", 'images/sides/' + src);
-        $("#interior").unbind().click(function () {
-            loadModel(modelID, 'arch');
-        })
+
 
         $("#forgeViewer").empty();
-        var urn = modelID;
+        var urn = modelID; // this is the id of the model wh want to show
         getForgeToken(function (access_token) {
-            console.log(access_token);
             jQuery.ajax({
                 url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
                 headers: { 'Authorization': 'Bearer ' + access_token },
@@ -827,11 +796,6 @@ function getMyModels() {
         success: function (result) {
             var i = 1;
             result.forEach(function (item) {
-                //var modelName = item.text.split('.')[0].split('_')[0];
-                //var storiesNumber = item.text.split('.')[0].split('_')[1];
-                //var bedCount = item.text.split('.')[0].split('_')[2];
-                //var area = item.text.split('.')[0].split('_')[3];
-
                 $('#mymodels').append(`<div id="${item.id}" class="col-sm-4 inner-img" onClick="loadModel('${item.text}','${item.id}', 'arch', this)" data-toggle="tooltip" data-placement="right" title="${item.text}">
                     <img class="img-responsive arch-form-style" src ="http://placehold.jp/100x100.png?text=${item.text}" alt ="${item.text}" />
                                     </div >`);
